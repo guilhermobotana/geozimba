@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geo Zimba — Regularização Ambiental em Imbituba e Região</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green-deep: #0a3d2e;
+  --green-mid: #1a6b4a;
+  --green-bright: #2d9e6b;
+  --green-light: #e8f5ee;
+  --sand: #f5f0e8;
+  --sand-dark: #e4dccb;
+  --white: #fafaf8;
+  --text: #1a1a18;
+  --text-mid: #4a4a44;
+  --text-light: #8a8a80;
+  --accent: #c8a84b;
+  --warn: #e05c2a;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 4rem;
+  background: rgba(250,250,248,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(10,61,46,0.08);
+  transition: box-shadow 0.3s;
+}
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav ul a { text-decoration: none; font-size: 0.875rem; color: var(--text-mid); transition: color 0.2s; }
+nav ul a:hover { color: var(--green-deep); }
+.nav-cta { background: var(--green-deep) !important; color: var(--white) !important; padding: 0.6rem 1.4rem !important; border-radius: 2px; font-weight: 500 !important; }
+.nav-cta:hover { background: var(--green-mid) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: var(--green-deep);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 8rem 4rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 40%, rgba(45,158,107,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+.hero-h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--white); letter-spacing: -0.02em;
+  max-width: 820px; margin-bottom: 1.75rem;
+}
+.hero-h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.75;
+  color: rgba(250,250,248,0.6);
+  max-width: 540px; margin-bottom: 3rem;
+}
+.hero-cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-card {
+  background: rgba(250,250,248,0.07);
+  border: 1px solid rgba(250,250,248,0.12);
+  border-radius: 4px; padding: 1rem 1.25rem; min-width: 160px;
+}
+.hc-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; color: var(--green-bright); line-height: 1; }
+.hc-label { font-size: 0.75rem; color: rgba(250,250,248,0.5); margin-top: 0.3rem; line-height: 1.4; }
+.hero-btns { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.btn-primary { background: var(--green-bright); color: var(--white); padding: 0.9rem 2rem; border-radius: 2px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; display: inline-block; }
+.btn-primary:hover { background: #249a63; }
+.btn-ghost { color: rgba(250,250,248,0.6); font-size: 0.875rem; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+.btn-ghost:hover { color: var(--white); }
+.btn-ghost::after { content: '→'; }
+
+/* ALERTA */
+.alerta { background: #fff8f0; border-top: 3px solid var(--warn); padding: 3rem 4rem; }
+.alerta-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+.alerta-icon { font-size: 2.5rem; line-height: 1; }
+.alerta-title { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 400; color: var(--warn); margin-bottom: 0.5rem; }
+.alerta-text { font-size: 0.9rem; line-height: 1.7; color: var(--text-mid); }
+.alerta-text strong { color: var(--text); font-weight: 500; }
+
+/* SECTION BASE */
+section { padding: 6rem 4rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-bright); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--green-bright); }
+.section-h2 { font-family: 'Fraunces', serif; font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.15; color: var(--green-deep); letter-spacing: -0.02em; margin-bottom: 1rem; }
+.section-h2 em { font-style: italic; color: var(--green-bright); }
+.section-desc { font-size: 0.975rem; line-height: 1.75; color: var(--text-mid); max-width: 560px; }
+
+/* PÚBLICO */
+#publico { background: var(--white); }
+.publico-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 3.5rem; align-items: end; }
+.atividade-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--sand-dark); border: 1px solid var(--sand-dark); }
+.ativ-card { background: var(--white); padding: 1.5rem; transition: background 0.2s; }
+.ativ-card:hover { background: var(--green-light); }
+.ativ-icon { font-size: 1.4rem; margin-bottom: 0.75rem; line-height: 1; }
+.ativ-name { font-size: 0.9rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.3rem; }
+.ativ-sub { font-size: 0.78rem; color: var(--text-light); line-height: 1.4; }
+.ativ-badge { display: inline-block; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: #fce8e8; color: #a33; border-radius: 2px; margin-top: 0.5rem; font-weight: 500; }
+.ativ-badge.ok { background: var(--green-light); color: var(--green-mid); }
+
+/* SERVIÇOS */
+#servicos { background: var(--sand); }
+.serv-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 3.5rem; align-items: end; }
+.serv-list { display: flex; flex-direction: column; gap: 1px; background: var(--sand-dark); border: 1px solid var(--sand-dark); }
+.serv-item {
+  background: var(--white); padding: 2rem 2.5rem;
+  display: grid; grid-template-columns: 3rem 1fr auto;
+  gap: 1.5rem; align-items: start;
+  transition: background 0.2s;
+}
+.serv-item:hover { background: var(--green-deep); }
+.serv-item:hover .si-num, .serv-item:hover .si-title, .serv-item:hover .si-desc { color: rgba(250,250,248,0.85); }
+.serv-item:hover .si-arrow { color: var(--green-bright); }
+.si-num { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--text-light); padding-top: 2px; transition: color 0.2s; }
+.si-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 400; color: var(--green-deep); margin-bottom: 0.5rem; line-height: 1.2; transition: color 0.2s; }
+.si-desc { font-size: 0.85rem; line-height: 1.65; color: var(--text-mid); transition: color 0.2s; }
+.si-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+.si-tag { font-size: 0.7rem; padding: 0.2rem 0.55rem; background: var(--green-light); color: var(--green-mid); border-radius: 2px; }
+.serv-item:hover .si-tag { background: rgba(45,158,107,0.25); color: rgba(250,250,248,0.8); }
+.si-arrow { font-size: 1.2rem; color: var(--sand-dark); padding-top: 2px; transition: color 0.2s; }
+
+/* REURB */
+#reurb { background: var(--green-deep); }
+.reurb-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.reurb-left .section-label { color: var(--accent); }
+.reurb-left .section-label::before { background: var(--accent); }
+.reurb-left .section-h2 { color: var(--white); }
+.reurb-left .section-h2 em { color: var(--accent); }
+.reurb-left .section-desc { color: rgba(250,250,248,0.6); max-width: 100%; }
+.reurb-tipos { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+.reurb-tipo { border: 1px solid rgba(250,250,248,0.12); border-radius: 4px; padding: 1.25rem 1.5rem; }
+.rt-title { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-bottom: 0.4rem; }
+.rt-badge { display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.55rem; border-radius: 2px; font-weight: 500; margin-bottom: 0.5rem; }
+.rt-s { background: rgba(45,158,107,0.25); color: #6adba8; }
+.rt-e { background: rgba(200,168,75,0.2); color: var(--accent); }
+.rt-desc { font-size: 0.82rem; line-height: 1.6; color: rgba(250,250,248,0.5); }
+.reurb-card { background: rgba(250,250,248,0.06); border: 1px solid rgba(250,250,248,0.1); border-radius: 4px; padding: 2rem; margin-bottom: 1rem; }
+.rc-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 400; color: var(--white); margin-bottom: 0.75rem; }
+.rc-list { list-style: none; }
+.rc-list li { font-size: 0.85rem; color: rgba(250,250,248,0.6); padding: 0.4rem 0; border-bottom: 1px solid rgba(250,250,248,0.06); display: flex; gap: 0.75rem; align-items: baseline; line-height: 1.5; }
+.rc-list li:last-child { border-bottom: none; }
+.rc-list li::before { content: '→'; color: var(--green-bright); flex-shrink: 0; font-size: 0.75rem; }
+.btn-light { display: block; background: var(--green-bright); color: var(--white); padding: 1rem 1.5rem; border-radius: 2px; font-size: 0.9rem; font-weight: 500; text-decoration: none; text-align: center; transition: background 0.2s; border: none; cursor: pointer; width: 100%; margin-top: 1rem; }
+.btn-light:hover { background: #249a63; }
+
+/* COMO FUNCIONA */
+#como { background: var(--white); }
+.como-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.step { display: flex; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--sand-dark); }
+.step:last-child { border-bottom: none; }
+.step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--green-deep); color: var(--white); font-family: 'Fraunces', serif; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.step-title { font-size: 1rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.4rem; }
+.step-desc { font-size: 0.875rem; line-height: 1.65; color: var(--text-mid); }
+.como-cta { position: sticky; top: 8rem; }
+.cta-box { background: var(--green-deep); border-radius: 4px; padding: 2.5rem; margin-bottom: 1rem; }
+.cta-box-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 300; color: var(--white); line-height: 1.25; margin-bottom: 1rem; }
+.cta-box-title em { font-style: italic; color: var(--accent); }
+.cta-box-desc { font-size: 0.875rem; line-height: 1.7; color: rgba(250,250,248,0.6); margin-bottom: 1.5rem; }
+.btn-cta { display: block; background: var(--green-bright); color: var(--white); padding: 1rem 1.5rem; border-radius: 2px; font-size: 0.9rem; font-weight: 500; text-align: center; border: none; cursor: pointer; width: 100%; transition: background 0.2s; }
+.btn-cta:hover { background: #249a63; }
+.faq-box { background: var(--sand); border-radius: 4px; padding: 1.5rem; }
+.faq-item { padding: 0.75rem 0; border-bottom: 1px solid var(--sand-dark); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { font-size: 0.875rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.35rem; }
+.faq-a { font-size: 0.82rem; line-height: 1.6; color: var(--text-mid); }
+
+/* CONTATO */
+#contato { background: var(--sand); }
+.contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text-mid); margin-bottom: 0.5rem; text-transform: uppercase; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.85rem 1rem; background: var(--white); border: 1px solid var(--sand-dark); border-radius: 2px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; color: var(--text); transition: border-color 0.2s; outline: none; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green-bright); }
+.form-group textarea { resize: vertical; min-height: 110px; }
+.contato-info-title { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 300; line-height: 1.2; color: var(--green-deep); margin-bottom: 0.75rem; }
+.contato-info-title em { font-style: italic; }
+.contato-info-sub { font-size: 0.9rem; line-height: 1.7; color: var(--text-mid); margin-bottom: 2rem; }
+.info-item { padding: 1rem 0; border-bottom: 1px solid var(--sand-dark); }
+.info-item:last-of-type { border-bottom: none; }
+.info-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); margin-bottom: 0.3rem; }
+.info-value { font-size: 0.95rem; color: var(--green-deep); font-weight: 500; }
+.info-sub { font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem; }
+.promise-box { margin-top: 1.5rem; background: var(--green-deep); border-radius: 4px; padding: 1.5rem; }
+.pb-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(250,250,248,0.4); margin-bottom: 0.75rem; }
+.pb-list { list-style: none; }
+.pb-list li { font-size: 0.85rem; color: rgba(250,250,248,0.7); padding: 0.35rem 0; display: flex; gap: 0.6rem; align-items: baseline; }
+.pb-list li::before { content: '✓'; color: var(--green-bright); font-size: 0.8rem; flex-shrink: 0; }
+
+/* FOOTER */
+footer { background: var(--green-deep); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(250,250,248,0.06); }
+.footer-copy { font-size: 0.78rem; color: rgba(250,250,248,0.35); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: 0.78rem; color: rgba(250,250,248,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+/* ANIM */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul { display: none; }
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .alerta { padding: 2rem 1.5rem; }
+  .alerta-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+  .publico-intro, .serv-intro, .como-grid, .reurb-inner, .contato-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .atividade-grid { grid-template-columns: repeat(2, 1fr); }
+  .serv-item { grid-template-columns: 2.5rem 1fr; }
+  .si-arrow { display: none; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" style="display:flex;align-items:center;text-decoration:none;">
+    <svg height="34" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="62" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#0a3d2e" letter-spacing="-2">GEO</text>
+      <text x="108" y="62" font-family="Georgia, serif" font-size="42" font-weight="300" fill="#1a6b4a" letter-spacing="-1">ZIMBA</text>
+      <path d="M0 72 L16 72 L22 67 L28 70 L35 64 L41 67 L48 61 L54 64 L61 59 L67 62 L74 57 L80 60 L88 65 L98 68 L108 64 L120 66 L132 70 L148 72 L320 72" fill="none" stroke="#1a6b4a" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="74" cy="55" r="2.5" fill="#c8a84b"/>
+    </svg>
+  </a>
+  <ul>
+    <li><a href="#publico">Para quem</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#reurb">REURB</a></li>
+    <li><a href="#como">Como funciona</a></li>
+    <li><a href="#contato" class="nav-cta">Falar com a Geo Zimba</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="inicio">
+  <svg height="56" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:2.5rem;position:relative;z-index:1;">
+    <text x="0" y="62" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#fafaf8" letter-spacing="-2">GEO</text>
+    <text x="108" y="62" font-family="Georgia, serif" font-size="42" font-weight="300" fill="#5dcaa5" letter-spacing="-1">ZIMBA</text>
+    <path d="M0 72 L16 72 L22 67 L28 70 L35 64 L41 67 L48 61 L54 64 L61 59 L67 62 L74 57 L80 60 L88 65 L98 68 L108 64 L120 66 L132 70 L148 72 L320 72" fill="none" stroke="#5dcaa5" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="74" cy="55" r="2.5" fill="#c8a84b"/>
+    <text x="0" y="88" font-family="Georgia, serif" font-size="9" fill="rgba(250,250,248,0.35)" letter-spacing="4">CONSULTORIA AMBIENTAL</text>
+  </svg>
+  <div class="hero-tag">Imbituba · Litoral Sul Catarinense</div>
+  <h1 class="hero-h1">Seu negócio ou imóvel<br><em>regularizado</em>,<br>sem complicação</h1>
+  <p class="hero-sub">A Geo Zimba resolve a situação ambiental e fundiária de pequenos comércios, microempresas e imóveis urbanos em Imbituba e região — de forma simples, rápida e acessível.</p>
+  <div class="hero-cards">
+    <div class="hero-card">
+      <div class="hc-num">Licença</div>
+      <div class="hc-label">Ambiental para atividades potencialmente poluidoras</div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-num">REURB</div>
+      <div class="hc-label">Regularização fundiária urbana</div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-num">PRAD</div>
+      <div class="hc-label">Recuperação de áreas degradadas</div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-num">APP</div>
+      <div class="hc-label">Regularização de áreas de preservação</div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-num">CAR</div>
+      <div class="hc-label">Cadastro Ambiental Rural</div>
+    </div>
+  </div>
+  <div class="hero-btns">
+    <a href="#contato" class="btn-primary">Verificar minha situação</a>
+    <a href="#servicos" class="btn-ghost">Ver serviços</a>
+  </div>
+</div>
+
+<!-- ALERTA -->
+<div class="alerta">
+  <div class="alerta-inner">
+    <div class="alerta-icon">⚠️</div>
+    <div>
+      <div class="alerta-title">Sua empresa pode estar operando irregularmente — e você nem sabe</div>
+      <div class="alerta-text">No Brasil, a maioria das <strong>oficinas mecânicas, lava-rápidos, borracharias, gráficas, lavanderias e pequenos comércios</strong> opera sem licença ambiental. Isso expõe o proprietário a <strong>multas, embargos e até fechamento</strong> pelos órgãos fiscalizadores. A boa notícia: regularizar é mais simples do que parece.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PÚBLICO -->
+<section id="publico">
+  <div class="container">
+    <div class="publico-intro fade-up">
+      <div>
+        <div class="section-label">Para quem é a Geo Zimba</div>
+        <h2 class="section-h2">Quem precisa de <em>regularização ambiental</em></h2>
+      </div>
+      <div>
+        <p class="section-desc">Se sua atividade gera resíduos, efluentes, ruído ou usa produtos químicos — você provavelmente precisa de licença ambiental. Veja abaixo as atividades mais comuns que atendemos:</p>
+      </div>
+    </div>
+    <div class="atividade-grid fade-up">
+      <div class="ativ-card">
+        <div class="ativ-icon">🔧</div>
+        <div class="ativ-name">Oficina mecânica</div>
+        <div class="ativ-sub">Óleo usado, solventes, efluentes</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🚗</div>
+        <div class="ativ-name">Lava-rápido</div>
+        <div class="ativ-sub">Efluentes, água com detergente</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">⛽</div>
+        <div class="ativ-name">Posto de combustível</div>
+        <div class="ativ-sub">Solo contaminado, tanques subterrâneos</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">👕</div>
+        <div class="ativ-name">Lavanderia / tinturaria</div>
+        <div class="ativ-sub">Efluentes com produtos químicos</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🖨️</div>
+        <div class="ativ-name">Gráfica</div>
+        <div class="ativ-sub">Tintas, solventes, resíduos especiais</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🔩</div>
+        <div class="ativ-name">Serralheria / metalúrgica</div>
+        <div class="ativ-sub">Resíduos metálicos, ruído, partículas</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🍖</div>
+        <div class="ativ-name">Açougue / restaurante</div>
+        <div class="ativ-sub">Efluentes, resíduos orgânicos, gordura</div>
+        <span class="ativ-badge">Licença obrigatória</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🏠</div>
+        <div class="ativ-name">Imóvel em APP ou REURB</div>
+        <div class="ativ-sub">Construído em área de preservação ou irregular</div>
+        <span class="ativ-badge ok">Regularização possível</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🌱</div>
+        <div class="ativ-name">Área degradada (PRAD)</div>
+        <div class="ativ-sub">Solo contaminado, APP desmatada, erosão</div>
+        <span class="ativ-badge ok">Projeto + execução</span>
+      </div>
+      <div class="ativ-card">
+        <div class="ativ-icon">🌿</div>
+        <div class="ativ-name">Área rural (CAR)</div>
+        <div class="ativ-sub">APP, reserva legal, uso do solo</div>
+        <span class="ativ-badge ok">Regularize já</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="container">
+    <div class="serv-intro fade-up">
+      <div>
+        <div class="section-label">Nossos serviços</div>
+        <h2 class="section-h2">O que a Geo Zimba <em>resolve para você</em></h2>
+      </div>
+      <div>
+        <p class="section-desc">Cuidamos de todo o processo — diagnóstico, documentação, protocolo e acompanhamento junto aos órgãos ambientais. Você foca no seu negócio.</p>
+      </div>
+    </div>
+    <div class="serv-list fade-up">
+      <div class="serv-item">
+        <div class="si-num">01</div>
+        <div>
+          <div class="si-title">Licença Ambiental para Pequenos Negócios</div>
+          <div class="si-desc">Levantamos a situação da sua atividade, identificamos qual licença é necessária (municipal, estadual ou federal) e conduzimos todo o processo até a emissão. Atendemos oficinas, lava-rápidos, gráficas, lavanderias, serralherias e demais atividades com potencial poluidor.</div>
+          <div class="si-tags"><span class="si-tag">Licença prévia</span><span class="si-tag">Licença de operação</span><span class="si-tag">Alvará ambiental</span><span class="si-tag">FATMA / Prefeitura</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+      <div class="serv-item">
+        <div class="si-num">02</div>
+        <div>
+          <div class="si-title">Regularização Fundiária Urbana (REURB)</div>
+          <div class="si-desc">Regularizamos imóveis urbanos em situação irregular — construídos sem aprovação, em áreas de REURB-S (interesse social) ou REURB-E (interesse específico). Atuamos como interlocutores entre moradores e o poder público, buscando sempre a solução socioeconomicamente viável para cada situação.</div>
+          <div class="si-tags"><span class="si-tag">REURB-S</span><span class="si-tag">REURB-E</span><span class="si-tag">Lei 13.465/2017</span><span class="si-tag">Titulação</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+      <div class="serv-item">
+        <div class="si-num">03</div>
+        <div>
+          <div class="si-title">Regularização de APP Urbana</div>
+          <div class="si-desc">Imóveis construídos às margens de rios, córregos ou encostas podem estar em Área de Preservação Permanente. Avaliamos a situação, identificamos as possibilidades de regularização e elaboramos o plano ambiental necessário para legalizar a construção.</div>
+          <div class="si-tags"><span class="si-tag">APP hídrica</span><span class="si-tag">Faixa marginal</span><span class="si-tag">Plano ambiental</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+      <div class="serv-item">
+        <div class="si-num">04</div>
+        <div>
+          <div class="si-title">PRAD — Projeto de Recuperação de Área Degradada</div>
+          <div class="si-desc">Elaboramos e executamos o PRAD para áreas que sofreram degradação ambiental — solo contaminado por combustíveis ou produtos químicos, APP desmatada, taludes e encostas erodidas. Atendemos exigências de licenciamento, condicionantes de licenças já emitidas e determinações do Ministério Público. Cuidamos do projeto técnico, execução em campo e relatório de monitoramento.</div>
+          <div class="si-tags"><span class="si-tag">Projeto técnico</span><span class="si-tag">Execução em campo</span><span class="si-tag">Solo contaminado</span><span class="si-tag">APP degradada</span><span class="si-tag">Monitoramento</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+      <div class="serv-item">
+        <div class="si-num">05</div>
+        <div>
+          <div class="si-title">CAR e Regularização Rural</div>
+          <div class="si-desc">Para proprietários rurais, fazemos o Cadastro Ambiental Rural (CAR), análise de APP e Reserva Legal, e elaboramos o Programa de Regularização Ambiental (PRA) para propriedades com passivo. Regularize sua terra antes das fiscalizações.</div>
+          <div class="si-tags"><span class="si-tag">CAR</span><span class="si-tag">PRA</span><span class="si-tag">Reserva Legal</span><span class="si-tag">APP rural</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+      <div class="serv-item">
+        <div class="si-num">06</div>
+        <div>
+          <div class="si-title">Diagnóstico Ambiental Gratuito</div>
+          <div class="si-desc">Não sabe por onde começar? Fazemos uma análise inicial da sua situação — atividade, localização, histórico — e te dizemos claramente o que precisa ser regularizado, em qual ordem e com qual custo estimado. Sem compromisso.</div>
+          <div class="si-tags"><span class="si-tag">Gratuito</span><span class="si-tag">Sem compromisso</span><span class="si-tag">Em até 24h</span></div>
+        </div>
+        <div class="si-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REURB -->
+<section id="reurb">
+  <div class="container">
+    <div class="reurb-inner fade-up">
+      <div class="reurb-left">
+        <div class="section-label">Regularização Fundiária</div>
+        <h2 class="section-h2">Não entregamos<br>um relatório —<br><em>construímos a solução junto com você</em></h2>
+        <p class="section-desc" style="margin-bottom:1rem;">Regularização fundiária envolve pessoas, histórias e realidades econômicas muito diferentes. Não existe solução de prateleira. Por isso, a Geo Zimba atua como <strong style="color:rgba(250,250,248,0.85);font-weight:500;">interlocutora ativa</strong> entre moradores, comunidades e os órgãos licenciadores — buscando sempre a solução mais viável para cada situação concreta.</p>
+        <p class="section-desc" style="margin-bottom:0;">Nossa abordagem começa ouvindo: quem mora ali, há quanto tempo, quais são as condições econômicas, quais são os entraves técnicos. A partir disso, negociamos com o poder público a alternativa que seja ao mesmo tempo legalmente possível e socioeconomicamente sustentável para as famílias e comerciantes envolvidos.</p>
+        <div class="reurb-tipos">
+          <div class="reurb-tipo">
+            <span class="rt-badge rt-s">REURB-S · Interesse Social</span>
+            <div class="rt-title">Para famílias de baixa renda</div>
+            <div class="rt-desc">Assentamentos informais, ocupações consolidadas, loteamentos sem infraestrutura. Processo com isenção de custas e protagonismo do poder público. A Geo Zimba representa os moradores na interlocução com a prefeitura — buscando soluções coletivas que respeitem a realidade de quem vive ali, sem expulsão e sem promessas vazias.</div>
+          </div>
+          <div class="reurb-tipo">
+            <span class="rt-badge rt-e">REURB-E · Interesse Específico</span>
+            <div class="rt-title">Para demais perfis e usos</div>
+            <div class="rt-desc">Comércios, residências, chácaras e loteamentos irregulares. Mesmo aqui buscamos a solução economicamente viável — alternativas técnicas que reduzam exigências, parcelamento de custos e diálogo direto com o órgão para chegar a um resultado que funcione para o proprietário.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reurb-right">
+        <div class="reurb-card">
+          <div class="rc-title">Como a Geo Zimba atua na prática</div>
+          <ul class="rc-list">
+            <li>Escuta ativa com moradores e comerciantes para entender a situação real</li>
+            <li>Mapeamento das condições socioeconômicas do núcleo ou imóvel</li>
+            <li>Levantamento técnico: planialtimétrico, cadastral e ambiental</li>
+            <li>Análise de todas as alternativas possíveis dentro da lei</li>
+            <li>Interlocução direta com prefeitura e órgãos licenciadores</li>
+            <li>Negociação de condicionantes viáveis — sem onerar quem não pode</li>
+            <li>PRAD quando exigido, com execução acessível e monitorada</li>
+            <li>Acompanhamento até a titulação ou regularização final</li>
+          </ul>
+        </div>
+        <div class="reurb-card" style="border-left:2px solid var(--accent);border-radius:0 4px 4px 0;">
+          <div class="rc-title" style="color:var(--accent);">Nossa posição no processo</div>
+          <ul class="rc-list">
+            <li>Não somos do lado do órgão — somos do lado de quem precisa regularizar</li>
+            <li>Traduzimos a linguagem técnica para que o morador entenda seus direitos</li>
+            <li>Apresentamos ao órgão o contexto humano por trás de cada caso</li>
+            <li>Buscamos acordos que funcionem na prática, não só no papel</li>
+          </ul>
+        </div>
+        <a href="#contato" class="btn-light">Quero regularizar meu imóvel →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como">
+  <div class="container">
+    <div class="como-grid fade-up">
+      <div>
+        <div class="section-label">Como trabalhamos</div>
+        <h2 class="section-h2" style="margin-bottom:0.5rem;">Do diagnóstico à <em>regularização</em></h2>
+        <p class="section-desc" style="margin-bottom:2rem;">Um processo simples, sem burocracia para você. A Geo Zimba cuida de tudo.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title">Diagnóstico inicial</div>
+              <div class="step-desc">Você entra em contato e nos conta sobre sua atividade ou imóvel. Em até 24h, retornamos com uma avaliação da sua situação e o caminho para regularizar — sem custo.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title">Proposta e planejamento</div>
+              <div class="step-desc">Apresentamos uma proposta clara com escopo, prazo estimado e custo. Sem letra miúda. Você aprova e começamos.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title">Levantamento e documentação</div>
+              <div class="step-desc">Fazemos visita técnica, coletamos as informações e elaboramos todos os documentos, laudos e projetos exigidos pelo órgão ambiental ou pela prefeitura.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-title">Protocolo e acompanhamento</div>
+              <div class="step-desc">Protocolamos junto aos órgãos competentes e acompanhamos todo o trâmite — respondendo exigências, fazendo ajustes e mantendo você informado sobre o andamento.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-title">Emissão da licença ou regularização</div>
+              <div class="step-desc">Missão cumprida. Sua empresa opera regularizada ou seu imóvel está documentado. Entregamos toda a documentação e orientamos sobre renovações e obrigações futuras.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="como-cta">
+        <div class="cta-box">
+          <div class="cta-box-title">Não sabe se precisa de <em>licença ambiental?</em></div>
+          <div class="cta-box-desc">A maioria dos pequenos negócios não sabe que está irregular até receber uma notificação. Faça uma consulta gratuita — em 24h te dizemos a situação da sua atividade.</div>
+          <button class="btn-cta" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Consulta gratuita</button>
+        </div>
+        <div class="faq-box">
+          <div style="font-size:0.78rem;font-weight:500;color:var(--text-mid);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Dúvidas frequentes</div>
+          <div class="faq-item">
+            <div class="faq-q">Quanto tempo demora para obter a licença?</div>
+            <div class="faq-a">Depende do órgão e da atividade. Em geral, licenças municipais simples levam de 30 a 90 dias. Processos mais complexos podem levar de 6 a 12 meses.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">O que acontece se eu for fiscalizado sem licença?</div>
+            <div class="faq-a">Multas que podem variar de R$ 500 a R$ 50 milhões (Lei 9.605/98), embargo da atividade e, em casos graves, responsabilidade criminal do proprietário.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Posso regularizar mesmo tendo operado irregular por anos?</div>
+            <div class="faq-a">Sim. Na maioria dos casos é possível regularizar a situação com um processo de licenciamento corretivo. Avaliamos caso a caso.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">A Geo Zimba atende fora de Imbituba?</div>
+            <div class="faq-a">Sim. Atendemos todo o litoral sul catarinense — Laguna, Tubarão, Garopaba, Criciúma e municípios vizinhos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <div class="contato-grid fade-up">
+      <div>
+        <div class="section-label">Fale com a Geo Zimba</div>
+        <div style="height:0.5rem;"></div>
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" placeholder="Como posso te chamar?">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp ou telefone</label>
+          <input type="tel" placeholder="(48) 99999-9999">
+        </div>
+        <div class="form-group">
+          <label>Tipo de solicitação</label>
+          <select>
+            <option value="">Selecione...</option>
+            <option>Licença ambiental para minha empresa</option>
+            <option>Regularização fundiária (REURB)</option>
+            <option>Regularização de APP</option>
+            <option>PRAD — Recuperação de área degradada</option>
+            <option>CAR / Regularização rural</option>
+            <option>Não sei — quero um diagnóstico</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Município</label>
+          <input type="text" placeholder="Ex: Imbituba, Laguna, Tubarão...">
+        </div>
+        <div class="form-group">
+          <label>Descreva brevemente sua situação</label>
+          <textarea placeholder="Exemplo: tenho uma oficina mecânica há 3 anos e nunca tirei licença ambiental. Quero regularizar antes de ser fiscalizado..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:1rem;">Enviar — retornamos em até 24h →</button>
+      </div>
+      <div>
+        <div class="contato-info-title">Regularizar é mais <em>simples do que parece.</em></div>
+        <div class="contato-info-sub">A Geo Zimba nasceu em Imbituba para resolver o que parece complicado de forma direta, acessível e sem burocracia para você. Entre em contato e veja como podemos ajudar.</div>
+        <div class="info-item">
+          <div class="info-label">Localização</div>
+          <div class="info-value">Imbituba, SC</div>
+          <div class="info-sub">Litoral Sul Catarinense</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">E-mail</div>
+          <div class="info-value">contato@geozimba.com.br</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Área de atuação</div>
+          <div class="info-value">Imbituba, Laguna, Garopaba</div>
+          <div class="info-sub">Tubarão, Criciúma e litoral sul de SC</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Atendimento</div>
+          <div class="info-value">Seg – Sex, 8h às 18h</div>
+          <div class="info-sub">Retorno em até 24h úteis</div>
+        </div>
+        <div class="promise-box">
+          <div class="pb-label">Nosso compromisso</div>
+          <ul class="pb-list">
+            <li>Diagnóstico inicial sempre gratuito</li>
+            <li>Proposta clara com prazo e custo estimado</li>
+            <li>Comunicação direta — sem enrolação</li>
+            <li>Você sabe o andamento em cada etapa</li>
+            <li>Conhecemos os órgãos locais de SC</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#inicio" style="text-decoration:none;">
+    <svg height="30" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="62" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#fafaf8" letter-spacing="-2">GEO</text>
+      <text x="108" y="62" font-family="Georgia, serif" font-size="42" font-weight="300" fill="#5dcaa5" letter-spacing="-1">ZIMBA</text>
+      <path d="M0 72 L16 72 L22 67 L28 70 L35 64 L41 67 L48 61 L54 64 L61 59 L67 62 L74 57 L80 60 L88 65 L98 68 L108 64 L120 66 L132 70 L148 72 L320 72" fill="none" stroke="#5dcaa5" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="74" cy="55" r="2.5" fill="#c8a84b"/>
+    </svg>
+  </a>
+  <div class="footer-copy">© 2025 Geo Zimba · Consultoria Ambiental · Imbituba, SC</div>
+  <div class="footer-links">
+    <a href="#publico">Para quem</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#reurb">REURB</a>
+    <a href="#contato">Contato</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 40 ? '0 1px 20px rgba(10,61,46,0.08)' : 'none';
+});
+</script>
+</body>
+</html>
