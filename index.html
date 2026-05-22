@@ -1,6 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+<!-- Leaflet: biblioteca gratuita de mapas interativos -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+/* ===== PORTFÓLIO WEBGIS ===== */
+.portfolio-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.section-subtitle {
+  text-align: center;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border: 2px solid #2d6a4f;
+  background: transparent;
+  color: #2d6a4f;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: #2d6a4f;
+  color: #fff;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.portfolio-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+}
+.card-map-preview {
+  height: 180px;
+  background: #d4e6d0;
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
+}
+.card-info { padding: 18px; }
+.card-tag {
+  display: inline-block;
+  background: #2d6a4f;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.tag-reurb { background: #1565c0; }
+.tag-car   { background: #795548; }
+.tag-prad  { background: #e65100; }
+.card-info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin: 6px 0 2px;
+}
+.card-info > p {
+  font-size: 0.82rem;
+  color: #888;
+  margin: 0 0 6px;
+}
+.card-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.btn-ver-mapa {
+  width: 100%;
+  padding: 10px;
+  background: #2d6a4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-ver-mapa:hover { background: #1b4332; }
+.mapa-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.mapa-modal.ativo { display: flex; }
+.mapa-modal-inner {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.mapa-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+.mapa-modal-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin: 0 0 4px;
+}
+.mapa-modal-header p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+.btn-fechar-modal {
+  background: #f1f1f1;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 12px;
+  transition: background 0.2s;
+}
+.btn-fechar-modal:hover { background: #ddd; }
+#mapaFullscreen {
+  flex: 1;
+  min-height: 420px;
+}
+.portfolio-card.oculto { display: none; }
+@media (max-width: 600px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  #mapaFullscreen { min-height: 300px; }
+}
+</style>
+  <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consultoria Ambiental em Imbituba, Garopaba e SC | Licenciamento, REURB e Regularização Ambiental</title>
@@ -304,6 +488,107 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
   <section class="section" id="contato">
     <div class="container grid-2">
       <div>
+<!-- ========== PORTFÓLIO WEBGIS ========== -->
+<section id="portfolio" class="portfolio-section">
+  <div style="text-align:center; padding: 0 20px;">
+    <h2 class="section-title">Portfólio de Projetos</h2>
+    <p class="section-subtitle">
+      Trabalhos realizados em regularização ambiental e fundiária
+      no litoral sul de SC. Clique em um projeto para ver o mapa interativo.
+    </p>
+    <div class="portfolio-filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="app">APP</button>
+      <button class="filter-btn" data-filter="reurb">REURB</button>
+      <button class="filter-btn" data-filter="car">CAR</button>
+      <button class="filter-btn" data-filter="prad">PRAD</button>
+    </div>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <!-- PROJETO 1 -->
+    <div class="portfolio-card" data-category="app">
+      <div class="card-map-preview" id="map-preview-1"></div>
+      <div class="card-info">
+        <span class="card-tag">APP</span>
+        <h3>Regularização de APP</h3>
+        <p>Imbituba, SC · 2024</p>
+        <p class="card-desc">
+          Avaliação técnica e adequação ambiental de área de
+          preservação permanente em zona urbana.
+        </p>
+        <button class="btn-ver-mapa"
+          data-geojson="data/projeto-app-imbituba.geojson"
+          data-titulo="APP – Imbituba"
+          data-descricao="Área de Preservação Permanente delimitada e regularizada."
+          data-centro="-28.23,-48.66"
+          data-zoom="14">
+          🗺️ Ver mapa completo
+        </button>
+      </div>
+    </div>
+
+    <!-- PROJETO 2 -->
+    <div class="portfolio-card" data-category="reurb">
+      <div class="card-map-preview" id="map-preview-2"></div>
+      <div class="card-info">
+        <span class="card-tag tag-reurb">REURB</span>
+        <h3>REURB-S · Regularização Fundiária</h3>
+        <p>Garopaba, SC · 2025</p>
+        <p class="card-desc">
+          Regularização fundiária urbana para famílias de baixa
+          renda em ocupação consolidada.
+        </p>
+        <button class="btn-ver-mapa"
+          data-geojson="data/projeto-reurb-garopaba.geojson"
+          data-titulo="REURB-S – Garopaba"
+          data-descricao="Núcleo urbano informal regularizado com 42 lotes."
+          data-centro="-28.03,-48.61"
+          data-zoom="15">
+          🗺️ Ver mapa completo
+        </button>
+      </div>
+    </div>
+
+    <!-- PROJETO 3 -->
+    <div class="portfolio-card" data-category="car">
+      <div class="card-map-preview" id="map-preview-3"></div>
+      <div class="card-info">
+        <span class="card-tag tag-car">CAR</span>
+        <h3>CAR · Cadastro Ambiental Rural</h3>
+        <p>Laguna, SC · 2025</p>
+        <p class="card-desc">
+          Georreferenciamento e inscrição no CAR com delimitação
+          de APP e reserva legal.
+        </p>
+        <button class="btn-ver-mapa"
+          data-geojson="data/projeto-car-laguna.geojson"
+          data-titulo="CAR – Laguna"
+          data-descricao="Propriedade rural com APP e reserva legal averbada."
+          data-centro="-28.48,-48.77"
+          data-zoom="13">
+          🗺️ Ver mapa completo
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Modal do mapa (fica invisível até clicar no botão) -->
+<div id="mapaModal" class="mapa-modal">
+  <div class="mapa-modal-inner">
+    <div class="mapa-modal-header">
+      <div>
+        <h3 id="modalTitulo">Projeto</h3>
+        <p id="modalDescricao"></p>
+      </div>
+      <button class="btn-fechar-modal" id="btnFecharModal">✕</button>
+    </div>
+    <div id="mapaFullscreen"></div>
+  </div>
+</div>
         <div class="eyebrow">Fale com a Geo Zimba</div>
         <h2 class="title">Regularizar é mais <em>simples do que parece</em></h2>
         <p class="text" style="margin-bottom:1.5rem;">Esta versão está pronta para GitHub Pages. O formulário funciona sem backend próprio e abre seu aplicativo de e-mail com a mensagem preenchida.</p>
@@ -388,6 +673,130 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   });
 });
 document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+<!-- Leaflet JS: o motor que desenha os mapas -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+/* ======= GEO ZIMBA · PORTFÓLIO WEBGIS ======= */
+(function () {
+
+  /* --- Mapas de preview nos cards (só visuais) --- */
+  var previews = [
+    { id: "map-preview-1", lat: -28.23, lng: -48.66, zoom: 12 },
+    { id: "map-preview-2", lat: -28.03, lng: -48.61, zoom: 13 },
+    { id: "map-preview-3", lat: -28.48, lng: -48.77, zoom: 11 }
+  ];
+
+  previews.forEach(function(p) {
+    var el = document.getElementById(p.id);
+    if (!el) return;
+    var m = L.map(el, {
+      center: [p.lat, p.lng], zoom: p.zoom,
+      zoomControl: false, dragging: false,
+      scrollWheelZoom: false, doubleClickZoom: false,
+      touchZoom: false, keyboard: false, attributionControl: false
+    });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      { maxZoom: 19 }).addTo(m);
+  });
+
+  /* --- Modal com mapa completo --- */
+  var modal          = document.getElementById("mapaModal");
+  var btnFechar      = document.getElementById("btnFecharModal");
+  var modalTitulo    = document.getElementById("modalTitulo");
+  var modalDescricao = document.getElementById("modalDescricao");
+  var mapaModal      = null;
+  var camadaAtual    = null;
+
+  var cores = {
+    app:   { color:"#2d6a4f", fillColor:"#52b788", fillOpacity:0.35 },
+    reurb: { color:"#1565c0", fillColor:"#42a5f5", fillOpacity:0.35 },
+    car:   { color:"#795548", fillColor:"#a1887f", fillOpacity:0.35 },
+    prad:  { color:"#e65100", fillColor:"#ff8a65", fillOpacity:0.35 }
+  };
+
+  function abrirModal(btn) {
+    var url      = btn.getAttribute("data-geojson");
+    var titulo   = btn.getAttribute("data-titulo")    || "Projeto";
+    var descr    = btn.getAttribute("data-descricao") || "";
+    var partes   = btn.getAttribute("data-centro").split(",");
+    var centro   = [parseFloat(partes[0]), parseFloat(partes[1])];
+    var zoom     = parseInt(btn.getAttribute("data-zoom"), 10) || 13;
+    var card     = btn.parentElement.parentElement;
+    var cat      = card.getAttribute("data-category") || "app";
+    var estilo   = cores[cat] || cores.app;
+
+    modalTitulo.textContent    = titulo;
+    modalDescricao.textContent = descr;
+    modal.classList.add("ativo");
+    document.body.style.overflow = "hidden";
+
+    if (!mapaModal) {
+      mapaModal = L.map("mapaFullscreen", { center: centro, zoom: zoom });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapaModal);
+    } else {
+      mapaModal.setView(centro, zoom);
+    }
+
+    if (camadaAtual) { mapaModal.removeLayer(camadaAtual); camadaAtual = null; }
+
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        camadaAtual = L.geoJSON(data, {
+          style: function() { return estilo; },
+          onEachFeature: function(f, layer) {
+            if (f.properties) {
+              var txt = Object.keys(f.properties)
+                .filter(function(k){ return f.properties[k]; })
+                .map(function(k){ return "<b>"+k+":</b> "+f.properties[k]; })
+                .join("<br>");
+              if (txt) layer.bindPopup(txt);
+            }
+          }
+        }).addTo(mapaModal);
+        mapaModal.fitBounds(camadaAtual.getBounds(), { padding:[30,30] });
+      })
+      .catch(function() { mapaModal.setView(centro, zoom); });
+
+    setTimeout(function(){ mapaModal.invalidateSize(); }, 200);
+  }
+
+  function fecharModal() {
+    modal.classList.remove("ativo");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".btn-ver-mapa").forEach(function(btn) {
+    btn.addEventListener("click", function(){ abrirModal(btn); });
+  });
+
+  btnFechar.addEventListener("click", fecharModal);
+  modal.addEventListener("click", function(e){ if(e.target===modal) fecharModal(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") fecharModal(); });
+
+  /* --- Filtros --- */
+  document.querySelectorAll(".filter-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      document.querySelectorAll(".filter-btn")
+        .forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      var f = btn.getAttribute("data-filter");
+      document.querySelectorAll(".portfolio-card").forEach(function(card) {
+        if (f==="all" || card.getAttribute("data-category")===f) {
+          card.classList.remove("oculto");
+        } else {
+          card.classList.add("oculto");
+        }
+      });
+    });
+  });
+
+})();
 </script>
 </body>
 </html>
