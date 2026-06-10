@@ -561,9 +561,11 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
       <a href="#portfolio">Portfólio</a>
       <a href="#contato" class="btn btn-primary">Contato</a>
     </div>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
   </div>
-  <div class="container mobile-menu" id="mobile-menu">
+  <div id="mobile-menu" class="mobile-menu container">
     <a href="#publico">Para quem</a>
     <a href="#servicos">Serviços</a>
     <a href="#reurb">REURB</a>
@@ -575,65 +577,80 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
 <main>
 
   <!-- ===== HERO ===== -->
-  <section class="hero" id="inicio">
+  <section class="hero section" id="inicio">
     <div class="container">
-      <div class="eyebrow">Imbituba · Litoral Sul Catarinense</div>
-      <h1 class="title">Seu negócio ou imóvel <em>regularizado</em>, sem complicação</h1>
-      <p class="text">A Geo Zimba resolve a situação ambiental e fundiária de pequenos comércios, microempresas e imóveis urbanos em Imbituba e região, com atendimento claro, acessível e direto.</p>
+      <p class="eyebrow">Consultoria ambiental em SC</p>
+      <h1 class="title">Regularização ambiental <em>sem burocracia</em></h1>
+      <p class="text">
+        Simplificamos o licenciamento ambiental e a regularização fundiária para
+        sua empresa ou propriedade rural. Atendimento em Imbituba, Garopaba e
+        todo o litoral sul de Santa Catarina.
+      </p>
       <div class="hero-stats">
         <span>Licença ambiental</span>
         <span>REURB</span>
         <span>APP</span>
         <span>PRAD</span>
-        <!-- <span>CAR</span> REMOVIDO -->
       </div>
-      <div style="display:flex;gap:.9rem;flex-wrap:wrap;">
-        <a href="#contato" class="btn btn-primary">Verificar minha situação</a>
-        <a href="#servicos" class="btn btn-secondary">Ver serviços</a>
+      <div style="display:flex;gap:1rem;">
+        <a href="#contato" class="btn btn-primary">Fale com a Geo Zimba</a>
+        <a href="#servicos" class="btn btn-secondary">Nossos serviços</a>
       </div>
       <div class="alert">
-        <strong>Atenção:</strong> muitas oficinas, lava-rápidos, gráficas, lavanderias e pequenos comércios operam sem licença ambiental e só descobrem o risco quando recebem fiscalização.
+        <strong>Atenção:</strong> A fiscalização ambiental está cada vez mais rigorosa.
+        Evite multas e embargos.
       </div>
     </div>
   </section>
 
-  <!-- ===== PARA QUEM ===== -->
-  <section class="section" id="publico">
+  <!-- ===== PARA QUEM É A GEO ZIMBA ===== -->
+  <section class="section surface" id="publico">
     <div class="container">
-      <div class="eyebrow">Para quem é a Geo Zimba</div>
-      <h2 class="title">Quem precisa de <em>regularização ambiental</em></h2>
-      <p class="text" style="margin-bottom:2rem;">Se sua atividade gera resíduos, efluentes, ruído ou usa produtos químicos, você provavelmente precisa de regularização. Estes são alguns perfis atendidos.</p>
-      <div class="cards">
-        <div class="card"><strong>Oficina mecânica</strong> Óleo usado, solventes e efluentes.</div>
-        <div class="card"><strong>Lava-rápido</strong> Água com detergente e descarte incorreto.</div>
-        <div class="card"><strong>Posto de combustível</strong> Risco de contaminação do solo.</div>
-        <div class="card"><strong>Imóvel em APP ou REURB</strong> Construção em área irregular.</div>
-        <div class="card"><strong>Área degradada</strong> PRAD e recuperação ambiental.</div>
-        <div class="card"><strong>Área rural</strong> APP e reserva legal.</div> <!-- CAR REMOVIDO -->
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">Nosso público</p>
+          <h2 class="title">Para quem a Geo Zimba <em>pode ajudar</em></h2>
+          <p class="text">
+            Atendemos desde pequenos empreendedores até grandes propriedades,
+            oferecendo soluções personalizadas para cada necessidade.
+          </p>
+        </div>
+        <div class="cards">
+          <div class="card"><strong>Pequenos negócios</strong> Restaurantes, oficinas, pousadas, etc.</div>
+          <div class="card"><strong>Indústrias</strong> Licenciamento e gestão ambiental.</div>
+          <div class="card"><strong>Construtoras</strong> Estudos e licenças para empreendimentos.</div>
+          <div class="card"><strong>Proprietários rurais</strong> Regularização de APP e reserva legal.</div>
+          <div class="card"><strong>Empreendedores</strong> Viabilidade ambiental de projetos.</div>
+          <div class="card"><strong>Pessoas físicas</strong> Laudos e perícias ambientais.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== SERVIÇOS ===== -->
-  <section class="section surface" id="servicos">
+  <!-- ===== NOSSOS SERVIÇOS ===== -->
+  <section class="section" id="servicos">
     <div class="container">
-      <div class="eyebrow">Nossos serviços</div>
-      <h2 class="title">Consultoria ambiental em <em>Imbituba e região</em></h2>
-      <p class="text" style="margin-bottom:2rem;">
-        Atendemos Imbituba, Garopaba, Laguna, Tubarão e todo o litoral sul de Santa Catarina com soluções completas em regularização ambiental e fundiária.
+      <p class="eyebrow">O que fazemos</p>
+      <h2 class="title">Nossos <em>serviços</em></h2>
+      <p class="text">
+        Oferecemos uma gama completa de serviços para garantir a conformidade
+        ambiental e fundiária do seu projeto ou propriedade.
       </p>
-      <div class="cards">
-        <div class="card"><strong>Licenciamento Ambiental</strong> Licenças LP, LI, LO e LAC. Cadastro Técnico Federal (CTF/APP) e AIDA. Regularização completa junto aos órgãos ambientais em SC.</div>
-        <div class="card"><strong>REURB</strong> Regularização fundiária urbana com segurança jurídica.</div>
-        <div class="card"><strong>Geoprocessamento</strong> Mapas e análises espaciais com QGIS.</div>
-        <div class="card"><strong>Regularização de APP</strong> Avaliação técnica e adequação ambiental.</div>
-        <div class="card"><strong>PRAD</strong> Recuperação de áreas degradadas.</div>
-        <!-- <div class="card"><strong>CAR</strong> Cadastro ambiental rural e adequação.</div> REMOVIDO -->
+      <div class="cards" style="margin-top:2rem;">
+        <div class="card"><strong>Licenciamento ambiental</strong> LP, LI, LO, LAC para todos os portes.</div>
+        <div class="card"><strong>REURB</strong> Regularização fundiária urbana e rural.</div>
+        <div class="card"><strong>CTF/APP</strong> Cadastro Técnico Federal e Ato Declaratório Ambiental.</div>
+        <div class="card"><strong>AIDA</strong> Autorização de Intervenção Ambiental.</div>
+        <div class="card"><strong>APP</strong> Delimitação e regularização de Áreas de Preservação Permanente.</div>
+        <div class="card"><strong>PRAD</strong> Plano de Recuperação de Áreas Degradadas.</div>
+        <div class="card"><strong>Geoprocessamento</strong> Mapeamento, análise espacial e dados geográficos.</div>
+        <div class="card"><strong>Laudos e perícias</strong> Avaliações técnicas e pareceres.</div>
+        <div class="card"><strong>Consultoria</strong> Suporte contínuo e estratégico.</div>
       </div>
-      <div style="margin-top:2rem;">
-        <a href="https://wa.me/5548991243156?text=Olá,%20vim%20pelo%20site%20e%20quero%20um%20orçamento"
-           target="_blank" class="btn btn-primary">
-          Solicitar orçamento no WhatsApp
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="https://wa.me/5548991243156?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Geo%20Zimba." class="btn btn-primary" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Fale conosco pelo WhatsApp
         </a>
       </div>
     </div>
@@ -648,7 +665,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <p class="text">A Geo Zimba atua como interlocutora entre moradores, comunidades e poder público, buscando alternativas técnica e economicamente viáveis para cada caso.</p>
       </div>
       <ul class="list">
-        <li><strong>REURB-S</strong> Para famílias de baixa renda e ocupações consolidadas.</li>
+        <li><strong>REURB</strong> Para famílias de baixa renda e ocupações consolidadas.</li>
         <li><strong>REURB-E</strong> Para demais perfis, com foco em viabilidade prática.</li>
         <li><strong>Atuação direta</strong> Levantamento, diálogo com órgãos e acompanhamento até a regularização.</li>
       </ul>
@@ -656,258 +673,180 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
   </section>
 
   <!-- ===== PORTFÓLIO WEBGIS ===== -->
-  <section id="portfolio" class="portfolio-section">
-
-    <div style="text-align:center; padding: 0 20px; margin-bottom: 0;">
-      <div class="eyebrow" style="text-align:center;">Trabalhos realizados</div>
-      <h2 class="section-title">Portfólio de Projetos</h2>
+  <section class="portfolio-section" id="portfolio">
+    <div class="container">
+      <h2 class="section-title">Portfólio <em>WebGIS</em></h2>
       <p class="section-subtitle">
-        Regularização ambiental e fundiária no litoral sul de SC.
-        Clique em um projeto para ver o mapa interativo.
+        Explore alguns de nossos projetos e a aplicação de geotecnologias
+        para soluções ambientais e fundiárias.
       </p>
+
       <div class="portfolio-filters">
         <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="app">APP</button>
         <button class="filter-btn" data-filter="reurb">REURB</button>
-        <!-- <button class="filter-btn" data-filter="car">CAR</button> REMOVIDO -->
         <button class="filter-btn" data-filter="prad">PRAD</button>
-      </div>
-    </div>
-
-    <div class="portfolio-grid">
-
-      <!-- PROJETO 1 -->
-      <div class="portfolio-card" data-category="app">
-        <div class="card-map-preview" id="map-preview-1"></div>
-        <div class="card-info">
-          <span class="card-tag">APP</span>
-          <h3>Regularização de APP</h3>
-          <p>Imbituba, SC · 2024</p>
-          <p class="card-desc">
-            Avaliação técnica e adequação ambiental de área de
-            preservação permanente em zona urbana.
-          </p>
-          <button class="btn-ver-mapa"
-            data-geojson="data/projeto-app-imbituba.geojson"
-            data-titulo="APP – Imbituba"
-            data-descricao="Área de Preservação Permanente delimitada e regularizada."
-            data-centro="-28.23,-48.66"
-            data-zoom="14">
-            🗺️ Ver mapa completo
-          </button>
-        </div>
+        <button class="filter-btn" data-filter="licencas">LICENÇAS</button> <!-- NOVO BOTÃO DE FILTRO -->
       </div>
 
-      <!-- PROJETO 2 -->
-      <div class="portfolio-card" data-category="reurb">
-        <div class="card-map-preview" id="map-preview-2"></div>
-        <div class="card-info">
-          <span class="card-tag tag-reurb">REURB</span>
-          <h3>REURB-S · Regularização Fundiária</h3>
-          <p>Garopaba, SC · 2025</p>
-          <p class="card-desc">
-            Regularização fundiária urbana para famílias de baixa
-            renda em ocupação consolidada.
-          </p>
-          <button class="btn-ver-mapa"
-            data-geojson="data/projeto-reurb-garopaba.geojson"
-            data-titulo="REURB-S – Garopaba"
-            data-descricao="Núcleo urbano informal regularizado com 42 lotes."
-            data-centro="-28.03,-48.61"
-            data-zoom="15">
-            🗺️ Ver mapa completo
-          </button>
+      <div class="portfolio-grid">
+
+        <!-- PROJETO 1: APP -->
+        <div class="portfolio-card" data-category="app">
+          <div id="map-preview-1" class="card-map-preview"></div>
+          <div class="card-info">
+            <span class="card-tag">APP</span>
+            <h3>APP · Ocorrências na Região</h3>
+            <p class="card-desc">Consulte as principais ocorrências de APP na região.</p>
+            <button class="btn-ver-mapa"
+                    data-geojson="data/projeto-app-imbituba.geojson"
+                    data-titulo="APP – Ocorrências na Região"
+                    data-descricao="Consulte as principais ocorrências de APP na região."
+                    data-centro="-28.23,-48.66" data-zoom="12">
+              <span>🗺️ Ver mapa completo</span>
+            </button>
+          </div>
         </div>
+
+        <!-- PROJETO 2: REURB -->
+        <div class="portfolio-card" data-category="reurb">
+          <div id="map-preview-2" class="card-map-preview"></div>
+          <div class="card-info">
+            <span class="card-tag tag-reurb">REURB</span>
+            <h3>REURB · Laudos de Regularização</h3>
+            <p class="card-desc">Laudos para regularização fundiária.</p>
+            <button class="btn-ver-mapa"
+                    data-geojson="data/projeto-reurb-garopaba.geojson"
+                    data-titulo="REURB – Laudos de Regularização"
+                    data-descricao="Laudos para regularização fundiária."
+                    data-centro="-28.03,-48.61" data-zoom="13">
+              <span>🗺️ Ver mapa completo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJETO 3: LICENÇAS AMBIENTAIS (NOVO) -->
+        <div class="portfolio-card" data-category="licencas">
+          <div id="map-preview-3" class="card-map-preview"></div>
+          <div class="card-info">
+            <span class="card-tag" style="background:#007bff;">LICENÇAS</span>
+            <h3>Licenças Ambientais · Projetos</h3>
+            <p class="card-desc">Acompanhamento de processos de licenciamento.</p>
+            <button class="btn-ver-mapa"
+                    data-geojson="data/projeto-licencas-ambientais.geojson"
+                    data-titulo="Licenças Ambientais – Projetos"
+                    data-descricao="Acompanhamento de processos de licenciamento."
+                    data-centro="-28.23,-48.66" data-zoom="12">
+              <span>🗺️ Ver mapa completo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PROJETO 4: PRAD (Exemplo, se quiser adicionar um GeoJSON real) -->
+        <div class="portfolio-card" data-category="prad">
+          <div id="map-preview-4" class="card-map-preview"></div>
+          <div class="card-info">
+            <span class="card-tag tag-prad">PRAD</span>
+            <h3>PRAD · Recuperação de Áreas</h3>
+            <p class="card-desc">Planos de recuperação de áreas degradadas.</p>
+            <button class="btn-ver-mapa"
+                    data-geojson="data/projeto-prad.geojson" <!-- Você precisará criar este arquivo -->
+                    data-titulo="PRAD – Recuperação de Áreas"
+                    data-descricao="Planos de recuperação de áreas degradadas."
+                    data-centro="-28.23,-48.66" data-zoom="12">
+              <span>🗺️ Ver mapa completo</span>
+            </button>
+          </div>
+        </div>
+
       </div>
-
-      <!-- PROJETO 3 (CAR) REMOVIDO -->
-      <!-- <div class="portfolio-card" data-category="car">
-        <div class="card-map-preview" id="map-preview-3"></div>
-        <div class="card-info">
-          <span class="card-tag tag-car">CAR</span>
-          <h3>CAR · Cadastro Ambiental Rural</h3>
-          <p>Laguna, SC · 2025</p>
-          <p class="card-desc">
-            Georreferenciamento e inscrição no CAR com delimitação
-            de APP e reserva legal.
-          </p>
-          <button class="btn-ver-mapa"
-            data-geojson="data/projeto-car-laguna.geojson"
-            data-titulo="CAR – Laguna"
-            data-descricao="Propriedade rural com APP e reserva legal averbada."
-            data-centro="-28.48,-48.77"
-            data-zoom="13">
-            🗺️ Ver mapa completo
-          </button>
-        </div>
-      </div> -->
-
     </div>
   </section>
 
-  <!-- ===== MODAL MAPA WEBGIS ===== -->
+  <!-- ===== MAPA MODAL (WEBGIS) ===== -->
   <div id="mapaModal" class="mapa-modal">
-    <div class="mapa-modal-inner" id="mapaModalInner">
-
-      <!-- Cabeçalho do modal -->
+    <div id="mapaModalInner" class="mapa-modal-inner">
       <div class="mapa-modal-header">
         <div>
-          <h3 id="modalTitulo">Projeto</h3>
-          <p id="modalDescricao"></p>
+          <h3 id="modalTitulo">Título do Projeto</h3>
+          <p id="modalDescricao">Descrição breve do projeto.</p>
         </div>
         <div class="modal-btns">
-          <button class="btn-fullscreen" id="btnFullscreen" title="Tela cheia">⛶</button>
-          <button class="btn-fechar-modal" id="btnFecharModal" title="Fechar">✕</button>
+          <button id="btnFullscreen" class="btn-fullscreen" title="Tela cheia">⛶</button>
+          <button id="btnFecharModal" class="btn-fechar-modal" title="Fechar">✕</button>
         </div>
       </div>
-
-      <!-- Mapa + Painel -->
       <div class="mapa-corpo">
         <div id="mapaFullscreen">
-          <div class="map-loading-spinner" id="mapLoadingSpinner"></div> <!-- SPINNER ADICIONADO AQUI -->
+          <div class="map-loading-spinner" id="mapLoadingSpinner"></div>
         </div>
-
-        <!-- Painel de camadas -->
-        <div class="mapa-painel" id="mapaPainel">
+        <div id="mapaPainel" class="mapa-painel">
           <div class="painel-topo">
-            <span>🗂️ Camadas</span>
-            <button class="btn-painel-toggle" id="btnPainelToggle" title="Recolher">◀</button>
+            <span class="painel-content">Camadas</span>
+            <button id="btnPainelToggle" class="btn-painel-toggle" title="Recolher/Expandir">◀</button>
           </div>
-
           <div class="painel-content">
-
-            <!-- Projeto atual -->
             <div class="camada-grupo">
-              <div class="camada-grupo-titulo">📍 Projeto</div>
+              <div class="camada-grupo-titulo">Projeto</div>
               <label class="camada-item">
-                <input type="checkbox" id="toggle-projeto" checked>
-                <span class="camada-cor" style="background:#2d9e6b;"></span>
-                Área do projeto
+                <input type="checkbox" id="toggle-projeto" checked disabled>
+                <span>Projeto atual</span>
               </label>
             </div>
-
-            <!-- Camadas ambientais -->
             <div class="camada-grupo">
-              <div class="camada-grupo-titulo">🌿 Ambiental</div>
+              <div class="camada-grupo-titulo">Camadas de referência</div>
               <label class="camada-item">
-                <input type="checkbox" id="toggle-apa" checked>
-                <span class="camada-cor" style="background:#1b7837;"></span>
-                APA Litoral Sul SC
+                <input type="checkbox" id="toggle-apa">
+                <span>APAs Litoral Sul SC</span> <!-- TEXTO ATUALIZADO -->
               </label>
               <label class="camada-item">
-                <input type="checkbox" id="toggle-app" checked>
-                <span class="camada-cor" style="background:#4393c3;"></span>
-                APP Hídrica (ANA)
+                <input type="checkbox" id="toggle-app">
+                <span>APP Hídrica</span>
               </label>
               <label class="camada-item">
-                <input type="checkbox" id="toggle-laudos" checked>
-                <span class="camada-cor" style="background:#d6604d;"></span>
-                Meus laudos
+                <input type="checkbox" id="toggle-laudos">
+                <span>Laudos Geo Zimba</span>
               </label>
             </div>
-
-            <!-- Mapa base -->
             <div class="camada-grupo">
-              <div class="camada-grupo-titulo">🗺️ Mapa base</div>
+              <div class="camada-grupo-titulo">Mapa base</div>
               <label class="camada-item">
                 <input type="radio" name="basemap" value="osm" checked>
-                OpenStreetMap
+                <span>OpenStreetMap</span>
               </label>
               <label class="camada-item">
                 <input type="radio" name="basemap" value="satellite">
-                Satélite (Esri)
+                <span>Satélite (Esri)</span>
               </label>
               <label class="camada-item">
                 <input type="radio" name="basemap" value="topo">
-                Topográfico
+                <span>Topográfico (OTM)</span>
               </label>
             </div>
-
-          </div><!-- /painel-content -->
-
-          <!-- Legenda -->
+          </div>
           <div class="painel-legenda">
-            <div class="camada-grupo-titulo" style="margin-bottom:6px;">📋 Legenda</div>
+            <div class="camada-grupo-titulo">Legenda</div>
             <div class="legenda-item">
-              <span class="leg-box" style="background:rgba(45,158,107,.4);border:2px solid #2d9e6b;"></span>
-              Área do projeto
+              <span class="leg-box" style="background:var(--green-500);border-color:var(--green-900);"></span>
+              <span>Projeto atual</span>
             </div>
             <div class="legenda-item">
-              <span class="leg-box" style="background:rgba(27,120,55,.2);border:2px solid #1b7837;"></span>
-              APA
+              <span class="leg-box" style="background:var(--green-700);border-color:var(--green-900);opacity:0.12;border-style:dashed;"></span>
+              <span>APAs</span> <!-- TEXTO ATUALIZADO -->
             </div>
             <div class="legenda-item">
-              <span class="leg-box" style="background:rgba(67,147,195,.25);border:2px solid #4393c3;"></span>
-              APP Hídrica
+              <span class="leg-box" style="background:#4393c3;border-color:#4393c3;opacity:0.18;"></span>
+              <span>APP Hídrica</span>
             </div>
             <div class="legenda-item">
-              <span class="leg-box" style="background:rgba(214,96,77,.25);border:2px solid #d6604d;"></span>
-              Laudos realizados
+              <span class="leg-box" style="background:#d6604d;border-color:#d6604d;opacity:0.22;border-style:dashed;"></span>
+              <span>Laudos</span>
             </div>
           </div>
-
-        </div><!-- /mapa-painel -->
-      </div><!-- /mapa-corpo -->
-
-    </div>
-  </div>
-
-  <!-- ===== CONTATO ===== -->
-  <section class="section" id="contato">
-    <div class="container grid-2">
-      <div>
-        <div class="eyebrow">Fale com a Geo Zimba</div>
-        <h2 class="title">Regularizar é mais <em>simples do que parece</em></h2>
-        <p class="text" style="margin-bottom:1.5rem;">Preencha o formulário abaixo ou entre em contato diretamente pelo WhatsApp para verificar sua situação e solicitar um orçamento.</p>
-        <div class="form-box">
-          <form id="contato-form" action="https://formsubmit.co/guilhermobotana@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="Novo contato pelo site Geo Zimba">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://geozimba.com.br/obrigado.html">
-            <div class="field">
-              <label for="nome">Seu nome</label>
-              <input id="nome" name="nome" type="text" placeholder="Como posso te chamar?" required>
-            </div>
-            <div class="field">
-              <label for="telefone">WhatsApp ou telefone</label>
-              <input id="telefone" name="telefone" type="tel" placeholder="(48) 99999-9999" required>
-            </div>
-            <div class="field">
-              <label for="solicitacao">Tipo de solicitação</label>
-              <select id="solicitacao" name="solicitacao" required>
-                <option value="">Selecione...</option>
-                <option>Licença ambiental para minha empresa</option>
-                <option>Regularização fundiária (REURB)</option>
-                <option>Regularização de APP</option>
-                <option>PRAD | Recuperação de área degradada</option>
-                <!-- <option>CAR / Regularização rural</option> REMOVIDO -->
-                <option>Não sei, quero um diagnóstico</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="municipio">Município</label>
-              <input id="municipio" name="municipio" type="text" placeholder="Ex: Imbituba, Laguna, Tubarão..." required>
-            </div>
-            <div class="field">
-              <label for="mensagem">Descreva brevemente sua situação</label>
-              <textarea id="mensagem" name="mensagem" placeholder="Exemplo: tenho uma oficina mecânica há 3 anos e quero regularizar antes de ser fiscalizado..." required></textarea>
-            </div>
-            <p class="helper">Os dados do formulário serão enviados diretamente para guilhermobotana@gmail.com.</p>
-            <button class="btn btn-primary" type="submit" style="width:100%;margin-top:1rem;">Enviar mensagem</button>
-            <div class="status" id="form-status" aria-live="polite"></div>
-          </form>
         </div>
       </div>
-      <div>
-        <ul class="list">
-          <li><strong>Localização</strong> Imbituba, SC · Litoral Sul Catarinense</li>
-          <li><strong>E-mail</strong> <a href="mailto:guilhermobotana@gmail.com">guilhermobotana@gmail.com</a></li>
-          <li><strong>Área de atuação</strong> Imbituba, Garopaba, Laguna, Tubarão, Criciúma e todo o litoral sul de Santa Catarina.</li>
-          <li><strong>Atendimento</strong> Seg a Sex, 8h às 18h · Retorno em até 24h úteis.</li>
-        </ul>
-      </div>
     </div>
-  </section>
+  </div>
 
 </main>
 
@@ -964,7 +903,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }),
     satellite: L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+      "https://server.arcgisonone.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
       maxZoom: 19,
       attribution: '© <a href="https://www.esri.com">Esri</a> World Imagery'
     }),
@@ -979,6 +918,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
     app:        { color:"#1b6e4d", fillColor:"#2d9e6b", fillOpacity:.4, weight:2 },
     reurb:      { color:"#1565c0", fillColor:"#42a5f5", fillOpacity:.4, weight:2 },
     prad:       { color:"#e65100", fillColor:"#ff8a65", fillOpacity:.4, weight:2 },
+    licencas:   { color:"#007bff", fillColor:"#66b2ff", fillOpacity:.4, weight:2 }, // NOVO ESTILO
     apa:        { color:"#1b7837", fillColor:"#1b7837", fillOpacity:.12, weight:2, dashArray:"6,4" },
     appHidrica: { color:"#4393c3", fillColor:"#4393c3", fillOpacity:.18, weight:1.5 },
     laudos:     { color:"#d6604d", fillColor:"#d6604d", fillOpacity:.22, weight:2, dashArray:"4,3" }
@@ -987,7 +927,9 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
   /* --- Preview nos cards (somente visual, não interativo) --- */
   var previews = [
     { id:"map-preview-1", lat:-28.23, lng:-48.66, zoom:12 },
-    { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 }
+    { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 },
+    { id:"map-preview-3", lat:-28.23, lng:-48.66, zoom:12 }, // NOVO PREVIEW PARA LICENÇAS
+    { id:"map-preview-4", lat:-28.23, lng:-48.66, zoom:12 }  // NOVO PREVIEW PARA PRAD
   ];
   previews.forEach(function(p) {
     var el = document.getElementById(p.id);
@@ -1050,8 +992,12 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
     baseAtual.addTo(mapaModal);
 
     // Carrega camadas globais de forma assíncrona
-    camadaApa = await carregarGeoJSON("data/apa-litoral-sul-sc.geojson", estilos.apa,
-      function(f) { return "<b>APA Litoral Sul de SC</b><br>Área de Proteção Ambiental"; }
+    // Alterado para carregar um GeoJSON combinado para APAs
+    camadaApa = await carregarGeoJSON("data/apas-litoral-sul-sc.geojson", estilos.apa, // <--- NOVO ARQUIVO
+      function(f) {
+        var p = f.properties || {};
+        return "<b>" + (p.nome || "APA") + "</b><br>" + (p.tipo || "Área de Proteção Ambiental");
+      }
     );
     if (camadaApa) camadaApa.addTo(mapaModal);
 
@@ -1220,3 +1166,4 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
 
 </body>
 </html>
+
