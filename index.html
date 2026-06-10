@@ -393,10 +393,36 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
   flex: 1;
   overflow: hidden;
   min-height: 460px;
+  position: relative; /* Adicionado para posicionar o spinner */
 }
 #mapaFullscreen {
   flex: 1;
   min-height: 460px;
+}
+
+/* Spinner de carregamento para o mapa */
+.map-loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Acima do mapa */
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, .1);
+  border-top: 4px solid var(--green-500);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none; /* Escondido por padrão */
+}
+
+.map-loading-spinner.active {
+  display: block;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* Painel lateral de camadas */
@@ -737,7 +763,9 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
 
       <!-- Mapa + Painel -->
       <div class="mapa-corpo">
-        <div id="mapaFullscreen"></div>
+        <div id="mapaFullscreen">
+          <div class="map-loading-spinner" id="mapLoadingSpinner"></div> <!-- SPINNER ADICIONADO AQUI -->
+        </div>
 
         <!-- Painel de camadas -->
         <div class="mapa-painel" id="mapaPainel">
@@ -950,7 +978,6 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
   var estilos = {
     app:        { color:"#1b6e4d", fillColor:"#2d9e6b", fillOpacity:.4, weight:2 },
     reurb:      { color:"#1565c0", fillColor:"#42a5f5", fillOpacity:.4, weight:2 },
-    // car:        { color:"#795548", fillColor:"#a1887f", fillOpacity:.4, weight:2 }, // REMOVIDO
     prad:       { color:"#e65100", fillColor:"#ff8a65", fillOpacity:.4, weight:2 },
     apa:        { color:"#1b7837", fillColor:"#1b7837", fillOpacity:.12, weight:2, dashArray:"6,4" },
     appHidrica: { color:"#4393c3", fillColor:"#4393c3", fillOpacity:.18, weight:1.5 },
@@ -960,8 +987,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
   /* --- Preview nos cards (somente visual, não interativo) --- */
   var previews = [
     { id:"map-preview-1", lat:-28.23, lng:-48.66, zoom:12 },
-    { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 },
-    // { id:"map-preview-3", lat:-28.48, lng:-48.77, zoom:11 } // REMOVIDO
+    { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 }
   ];
   previews.forEach(function(p) {
     var el = document.getElementById(p.id);
@@ -977,65 +1003,64 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
 
   /* --- Estado do mapa modal --- */
   var mapaModal    = null;
-  var baseatual    = null;
+  var baseAtual    = null;
   var camadaProjeto = null;
   var camadaApa    = null;
   var camadaApp    = null;
   var camadaLaudos = null;
+  var spinner = document.getElementById('mapLoadingSpinner'); // Referência ao spinner
 
   /* --- Carrega GeoJSON com fallback silencioso --- */
-  function carregarGeoJSON(url, estilo, popupFn, callback) {
-    fetch(url)
-      .then(function(r) {
-        if (!r.ok) throw new Error("não encontrado");
-        return r.json();
-      })
-      .then(function(data) {
-        var layer = L.geoJSON(data, {
-          style: function() { return estilo; },
-          pointToLayer: function(f, ll) {
-            return L.circleMarker(ll, Object.assign({radius:7}, estilo));
-          },
-          onEachFeature: function(f, l) {
-            var txt = popupFn ? popupFn(f) : null;
-            if (!txt && f.properties) {
-              txt = Object.keys(f.properties)
-                .filter(function(k){ return f.properties[k]; })
-                .map(function(k){ return "<b>"+k+":</b> "+f.properties[k]; })
-                .join("<br>");
-            }
-            if (txt) l.bindPopup(txt);
+  async function carregarGeoJSON(url, estilo, popupFn) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("não encontrado");
+      }
+      const data = await response.json();
+      var layer = L.geoJSON(data, {
+        style: function() { return estilo; },
+        pointToLayer: function(f, ll) {
+          return L.circleMarker(ll, Object.assign({radius:7}, estilo));
+        },
+        onEachFeature: function(f, l) {
+          var txt = popupFn ? popupFn(f) : null;
+          if (!txt && f.properties) {
+            txt = Object.keys(f.properties)
+              .filter(function(k){ return f.properties[k]; })
+              .map(function(k){ return "<b>"+k+":</b> "+f.properties[k]; })
+              .join("<br>");
           }
-        });
-        callback(layer);
-      })
-      .catch(function() {
-        console.info("Camada ausente (normal antes de subir o arquivo):", url);
+          if (txt) l.bindPopup(txt);
+        }
       });
+      return layer;
+    } catch (error) {
+      console.info("Camada ausente (normal antes de subir o arquivo):", url, error.message);
+      return null;
+    }
   }
 
   /* --- Inicializa o mapa do modal (só na primeira abertura) --- */
-  function inicializarMapa(centro, zoom) {
+  async function inicializarMapa(centro, zoom) {
     if (mapaModal) return;
 
-    baseatual = basemaps.osm;
+    baseAtual = basemaps.osm;
     mapaModal = L.map("mapaFullscreen", { center:centro, zoom:zoom });
-    baseatual.addTo(mapaModal);
+    baseAtual.addTo(mapaModal);
 
-    /* Carrega APA */
-    carregarGeoJSON("data/apa-litoral-sul-sc.geojson", estilos.apa,
-      function(f) { return "<b>APA Litoral Sul de SC</b><br>Área de Proteção Ambiental"; },
-      function(layer) { camadaApa = layer; layer.addTo(mapaModal); }
+    // Carrega camadas globais de forma assíncrona
+    camadaApa = await carregarGeoJSON("data/apa-litoral-sul-sc.geojson", estilos.apa,
+      function(f) { return "<b>APA Litoral Sul de SC</b><br>Área de Proteção Ambiental"; }
     );
+    if (camadaApa) camadaApa.addTo(mapaModal);
 
-    /* Carrega APP Hídrica */
-    carregarGeoJSON("data/app-hidrica-ana.geojson", estilos.appHidrica,
-      function(f) { return "<b>APP Hídrica</b><br>Fonte: ANA / SNIRH"; },
-      function(layer) { camadaApp = layer; layer.addTo(mapaModal); }
+    camadaApp = await carregarGeoJSON("data/app-hidrica-ana.geojson", estilos.appHidrica,
+      function(f) { return "<b>APP Hídrica</b><br>Fonte: ANA / SNIRH"; }
     );
+    if (camadaApp) camadaApp.addTo(mapaModal);
 
-    /* Carrega todos os laudos */
-    carregarGeoJSON("data/laudos-geozimba.geojson", estilos.laudos,
+    camadaLaudos = await carregarGeoJSON("data/laudos-geozimba.geojson", estilos.laudos,
       function(f) {
         var p = f.properties || {};
         return "<b>Laudo Geo Zimba</b>" +
@@ -1043,16 +1068,18 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
           (p.tipo      ? "<br>Tipo: " + p.tipo      : "") +
           (p.municipio ? "<br>Município: " + p.municipio : "") +
           (p.ano       ? "<br>Ano: " + p.ano        : "");
-      },
-      function(layer) { camadaLaudos = layer; layer.addTo(mapaModal); }
+      }
     );
+    if (camadaLaudos) camadaLaudos.addTo(mapaModal);
 
     /* Ativa controles do painel */
     ativarPainel();
   }
 
   /* --- Abre o modal ao clicar em "Ver mapa completo" --- */
-  function abrirModal(btn) {
+  async function abrirModal(btn) {
+    spinner.classList.add('active'); // Ativa o spinner
+
     var url    = btn.getAttribute("data-geojson");
     var titulo = btn.getAttribute("data-titulo")    || "Projeto";
     var descr  = btn.getAttribute("data-descricao") || "";
@@ -1068,22 +1095,25 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
     document.getElementById("mapaModal").classList.add("ativo");
     document.body.style.overflow = "hidden";
 
-    inicializarMapa(centro, zoom);
+    await inicializarMapa(centro, zoom); // Garante que o mapa e camadas globais estejam inicializados
     mapaModal.setView(centro, zoom);
 
     /* Remove projeto anterior e carrega o novo */
     if (camadaProjeto) { mapaModal.removeLayer(camadaProjeto); camadaProjeto = null; }
     document.getElementById("toggle-projeto").checked = true;
 
-    carregarGeoJSON(url, estilo, null, function(layer) {
-      camadaProjeto = layer;
-      layer.addTo(mapaModal);
-      if (layer.getBounds().isValid()) {
-        mapaModal.fitBounds(layer.getBounds(), {padding:[30,30]});
+    camadaProjeto = await carregarGeoJSON(url, estilo);
+    if (camadaProjeto) {
+      camadaProjeto.addTo(mapaModal);
+      if (camadaProjeto.getBounds().isValid()) {
+        mapaModal.fitBounds(camadaProjeto.getBounds(), {padding:[30,30]});
       }
-    });
+    }
 
-    setTimeout(function(){ mapaModal.invalidateSize(); }, 250);
+    setTimeout(function(){
+      if(mapaModal) mapaModal.invalidateSize();
+      spinner.classList.remove('active'); // Desativa o spinner
+    }, 250);
   }
 
   /* --- Fecha o modal --- */
@@ -1092,43 +1122,49 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
     document.getElementById("mapaModalInner").classList.remove("tela-cheia");
     document.getElementById("btnFullscreen").textContent = "⛶";
     document.body.style.overflow = "";
+    // Opcional: Limpar o mapa ou remover camadas específicas se desejar
+    // if (mapaModal) {
+    //   mapaModal.eachLayer(function(layer) {
+    //     if (layer !== baseAtual) { // Não remove o basemap
+    //       mapaModal.removeLayer(layer);
+    //     }
+    //   });
+    // }
   }
 
   /* --- Painel de camadas --- */
   function ativarPainel() {
+    // Função auxiliar para toggle de camada
+    function setupLayerToggle(checkboxId, layer) {
+      const checkbox = document.getElementById(checkboxId);
+      if (checkbox && layer) {
+        checkbox.addEventListener("change", function() {
+          this.checked ? mapaModal.addLayer(layer) : mapaModal.removeLayer(layer);
+        });
+        checkbox.disabled = false; // Garante que esteja habilitado se a camada existe
+      } else if (checkbox) { // Se a camada não existe, desabilita o checkbox
+        checkbox.disabled = true;
+        checkbox.checked = false; // Garante que não esteja marcado
+      }
+    }
 
-    /* Toggle: Projeto */
-    document.getElementById("toggle-projeto").addEventListener("change", function() {
-      if (!camadaProjeto) return;
-      this.checked ? mapaModal.addLayer(camadaProjeto) : mapaModal.removeLayer(camadaProjeto);
-    });
+    // A camadaProjeto é carregada dinamicamente, então o setupLayerToggle precisa ser chamado após cada carregamento
+    // Para as camadas globais, podemos chamar aqui:
+    setupLayerToggle("toggle-apa", camadaApa);
+    setupLayerToggle("toggle-app", camadaApp);
+    setupLayerToggle("toggle-laudos", camadaLaudos);
 
-    /* Toggle: APA */
-    document.getElementById("toggle-apa").addEventListener("change", function() {
-      if (!camadaApa) return;
-      this.checked ? mapaModal.addLayer(camadaApa) : mapaModal.removeLayer(camadaApa);
-    });
-
-    /* Toggle: APP Hídrica */
-    document.getElementById("toggle-app").addEventListener("change", function() {
-      if (!camadaApp) return;
-      this.checked ? mapaModal.addLayer(camadaApp) : mapaModal.removeLayer(camadaApp);
-    });
-
-    /* Toggle: Laudos */
-    document.getElementById("toggle-laudos").addEventListener("change", function() {
-      if (!camadaLaudos) return;
-      this.checked ? mapaModal.addLayer(camadaLaudos) : mapaModal.removeLayer(camadaLaudos);
-    });
+    // Para o toggle-projeto, a lógica de habilitação/desabilitação é tratada dentro de abrirModal
+    // e o event listener já está no HTML, então não precisamos re-adicionar aqui.
 
     /* Troca de mapa base */
     document.querySelectorAll("input[name='basemap']").forEach(function(radio) {
       radio.addEventListener("change", function() {
-        if (!mapaModal) return;
-        mapaModal.removeLayer(baseatual);
-        baseatual = basemaps[this.value];
-        baseatual.addTo(mapaModal);
-        baseatual.bringToBack();
+        if (!mapaModal || !baseAtual) return;
+        mapaModal.removeLayer(baseAtual);
+        baseAtual = basemaps[this.value];
+        baseAtual.addTo(mapaModal);
+        baseAtual.bringToBack();
       });
     });
 
@@ -1137,7 +1173,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
       var painel = document.getElementById("mapaPainel");
       painel.classList.toggle("recolhido");
       this.textContent = painel.classList.contains("recolhido") ? "▶" : "◀";
-      setTimeout(function(){ mapaModal.invalidateSize(); }, 300);
+      setTimeout(function(){ if(mapaModal) mapaModal.invalidateSize(); }, 300);
     });
   }
 
@@ -1169,6 +1205,13 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
         card.classList.toggle("oculto",
           f !== "all" && card.getAttribute("data-category") !== f);
       });
+    });
+  });
+
+  /* --- Adiciona event listeners aos botões "Ver mapa completo" --- */
+  document.querySelectorAll(".btn-ver-mapa").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      abrirModal(this);
     });
   });
 
