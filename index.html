@@ -648,7 +648,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <p class="text">A Geo Zimba atua como interlocutora entre moradores, comunidades e poder público, buscando alternativas técnica e economicamente viáveis para cada caso.</p>
       </div>
       <ul class="list">
-        <li><strong>REURB-S</strong> Para famílias de baixa renda e ocupações consolidadas.</li>
+        <li><strong>REURB</strong> Para famílias de baixa renda e ocupações consolidadas.</li> <!-- ALTERADO: Removido "-S" -->
         <li><strong>REURB-E</strong> Para demais perfis, com foco em viabilidade prática.</li>
         <li><strong>Atuação direta</strong> Levantamento, diálogo com órgãos e acompanhamento até a regularização.</li>
       </ul>
@@ -676,21 +676,20 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
 
     <div class="portfolio-grid">
 
-      <!-- PROJETO 1 -->
+      <!-- PROJETO 1: APP -->
       <div class="portfolio-card" data-category="app">
         <div class="card-map-preview" id="map-preview-1"></div>
         <div class="card-info">
           <span class="card-tag">APP</span>
           <h3>Regularização de APP</h3>
-          <p>Imbituba, SC · 2024</p>
+          <!-- <p>Imbituba, SC · 2024</p> REMOVIDO -->
           <p class="card-desc">
-            Avaliação técnica e adequação ambiental de área de
-            preservação permanente em zona urbana.
+            Consulte as principais ocorrências de APP na região.
           </p>
           <button class="btn-ver-mapa"
             data-geojson="data/projeto-app-imbituba.geojson"
-            data-titulo="APP – Imbituba"
-            data-descricao="Área de Preservação Permanente delimitada e regularizada."
+            data-titulo="APP – Ocorrências na Região"
+            data-descricao="Consulte as principais ocorrências de APP na região."
             data-centro="-28.23,-48.66"
             data-zoom="14">
             🗺️ Ver mapa completo
@@ -698,21 +697,20 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         </div>
       </div>
 
-      <!-- PROJETO 2 -->
+      <!-- PROJETO 2: REURB -->
       <div class="portfolio-card" data-category="reurb">
         <div class="card-map-preview" id="map-preview-2"></div>
         <div class="card-info">
           <span class="card-tag tag-reurb">REURB</span>
-          <h3>REURB-S · Regularização Fundiária</h3>
-          <p>Garopaba, SC · 2025</p>
+          <h3>REURB · Regularização Fundiária</h3> <!-- ALTERADO: Removido "-S" -->
+          <!-- <p>Garopaba, SC · 2025</p> REMOVIDO -->
           <p class="card-desc">
-            Regularização fundiária urbana para famílias de baixa
-            renda em ocupação consolidada.
+            Laudos para regularização fundiária.
           </p>
           <button class="btn-ver-mapa"
             data-geojson="data/projeto-reurb-garopaba.geojson"
-            data-titulo="REURB-S – Garopaba"
-            data-descricao="Núcleo urbano informal regularizado com 42 lotes."
+            data-titulo="REURB – Laudos de Regularização" <!-- ALTERADO: Removido "-S" -->
+            data-descricao="Laudos para regularização fundiária."
             data-centro="-28.03,-48.61"
             data-zoom="15">
             🗺️ Ver mapa completo
@@ -720,27 +718,26 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         </div>
       </div>
 
-      <!-- PROJETO 3 (CAR) REMOVIDO -->
-      <!-- <div class="portfolio-card" data-category="car">
+      <!-- NOVO PROJETO 3: Licenças Ambientais -->
+      <div class="portfolio-card" data-category="licencas">
         <div class="card-map-preview" id="map-preview-3"></div>
         <div class="card-info">
-          <span class="card-tag tag-car">CAR</span>
-          <h3>CAR · Cadastro Ambiental Rural</h3>
-          <p>Laguna, SC · 2025</p>
+          <span class="card-tag" style="background:#007bff;">LICENÇAS</span>
+          <h3>Licenças Ambientais</h3>
+          <!-- <p>Imbituba, SC · 2026</p> -->
           <p class="card-desc">
-            Georreferenciamento e inscrição no CAR com delimitação
-            de APP e reserva legal.
+            Visualize áreas de interesse para licenciamento ambiental.
           </p>
           <button class="btn-ver-mapa"
-            data-geojson="data/projeto-car-laguna.geojson"
-            data-titulo="CAR – Laguna"
-            data-descricao="Propriedade rural com APP e reserva legal averbada."
-            data-centro="-28.48,-48.77"
-            data-zoom="13">
+            data-geojson="data/projeto-licencas-ambientais.geojson"
+            data-titulo="Licenças Ambientais – Áreas de Interesse"
+            data-descricao="Visualize áreas de interesse para licenciamento ambiental."
+            data-centro="-28.23,-48.66"
+            data-zoom="12">
             🗺️ Ver mapa completo
           </button>
         </div>
-      </div> -->
+      </div>
 
     </div>
   </section>
@@ -792,7 +789,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
               <label class="camada-item">
                 <input type="checkbox" id="toggle-apa" checked>
                 <span class="camada-cor" style="background:#1b7837;"></span>
-                APA Litoral Sul SC
+                APAs Litoral Sul SC
               </label>
               <label class="camada-item">
                 <input type="checkbox" id="toggle-app" checked>
@@ -834,7 +831,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
             </div>
             <div class="legenda-item">
               <span class="leg-box" style="background:rgba(27,120,55,.2);border:2px solid #1b7837;"></span>
-              APA
+              APAs
             </div>
             <div class="legenda-item">
               <span class="leg-box" style="background:rgba(67,147,195,.25);border:2px solid #4393c3;"></span>
@@ -901,322 +898,5 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
       <div>
         <ul class="list">
           <li><strong>Localização</strong> Imbituba, SC · Litoral Sul Catarinense</li>
-          <li><strong>E-mail</strong> <a href="mailto:guilhermobotana@gmail.com">guilhermobotana@gmail.com</a></li>
-          <li><strong>Área de atuação</strong> Imbituba, Garopaba, Laguna, Tubarão, Criciúma e todo o litoral sul de Santa Catarina.</li>
-          <li><strong>Atendimento</strong> Seg a Sex, 8h às 18h · Retorno em até 24h úteis.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+          <li><strong>E-mail</strong> <a href="mailto:
 
-</main>
-
-<!-- ===== WHATSAPP FLUTUANTE ===== -->
-<a class="whatsapp-float"
-   href="https://wa.me/5548991243156?text=Olá%2C%20vim%20pelo%20site%20da%20Geo%20Zimba%20e%20gostaria%20de%20mais%20informações."
-   target="_blank" rel="noopener" aria-label="Fale conosco no WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-  Fale pelo WhatsApp
-</a>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="container footer-wrap">
-    <div>© <span id="current-year">2026</span> Geo Zimba · Consultoria Ambiental · Imbituba, SC</div>
-    <div>Pronto para GitHub Pages</div>
-  </div>
-</footer>
-
-<!-- ===== SCRIPTS ===== -->
-<script>
-/* --- Menu mobile --- */
-const navToggle = document.querySelector('.nav-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-navToggle.addEventListener('click', () => {
-  const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-  navToggle.setAttribute('aria-expanded', String(!isOpen));
-  mobileMenu.classList.toggle('open', !isOpen);
-});
-mobileMenu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navToggle.setAttribute('aria-expanded', 'false');
-    mobileMenu.classList.remove('open');
-  });
-});
-document.getElementById('current-year').textContent = new Date().getFullYear();
-</script>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-/* ================================================
-   GEO ZIMBA · WEBGIS PORTFÓLIO
-   ================================================ */
-(function () {
-
-  /* --- Tile layers (mapas base) --- */
-  var basemaps = {
-    osm: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }),
-    satellite: L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-      maxZoom: 19,
-      attribution: '© <a href="https://www.esri.com">Esri</a> World Imagery'
-    }),
-    topo: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-      maxZoom: 17,
-      attribution: '© <a href="https://opentopomap.org">OpenTopoMap</a>'
-    })
-  };
-
-  /* --- Estilos das camadas --- */
-  var estilos = {
-    app:        { color:"#1b6e4d", fillColor:"#2d9e6b", fillOpacity:.4, weight:2 },
-    reurb:      { color:"#1565c0", fillColor:"#42a5f5", fillOpacity:.4, weight:2 },
-    prad:       { color:"#e65100", fillColor:"#ff8a65", fillOpacity:.4, weight:2 },
-    apa:        { color:"#1b7837", fillColor:"#1b7837", fillOpacity:.12, weight:2, dashArray:"6,4" },
-    appHidrica: { color:"#4393c3", fillColor:"#4393c3", fillOpacity:.18, weight:1.5 },
-    laudos:     { color:"#d6604d", fillColor:"#d6604d", fillOpacity:.22, weight:2, dashArray:"4,3" }
-  };
-
-  /* --- Preview nos cards (somente visual, não interativo) --- */
-  var previews = [
-    { id:"map-preview-1", lat:-28.23, lng:-48.66, zoom:12 },
-    { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 }
-  ];
-  previews.forEach(function(p) {
-    var el = document.getElementById(p.id);
-    if (!el) return;
-    var m = L.map(el, {
-      center:[p.lat,p.lng], zoom:p.zoom,
-      zoomControl:false, dragging:false,
-      scrollWheelZoom:false, doubleClickZoom:false,
-      touchZoom:false, keyboard:false, attributionControl:false
-    });
-    basemaps.satellite.addTo(m); /* Preview usa satélite — mais bonito */
-  });
-
-  /* --- Estado do mapa modal --- */
-  var mapaModal    = null;
-  var baseAtual    = null;
-  var camadaProjeto = null;
-  var camadaApa    = null;
-  var camadaApp    = null;
-  var camadaLaudos = null;
-  var spinner = document.getElementById('mapLoadingSpinner'); // Referência ao spinner
-
-  /* --- Carrega GeoJSON com fallback silencioso --- */
-  async function carregarGeoJSON(url, estilo, popupFn) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("não encontrado");
-      }
-      const data = await response.json();
-      var layer = L.geoJSON(data, {
-        style: function() { return estilo; },
-        pointToLayer: function(f, ll) {
-          return L.circleMarker(ll, Object.assign({radius:7}, estilo));
-        },
-        onEachFeature: function(f, l) {
-          var txt = popupFn ? popupFn(f) : null;
-          if (!txt && f.properties) {
-            txt = Object.keys(f.properties)
-              .filter(function(k){ return f.properties[k]; })
-              .map(function(k){ return "<b>"+k+":</b> "+f.properties[k]; })
-              .join("<br>");
-          }
-          if (txt) l.bindPopup(txt);
-        }
-      });
-      return layer;
-    } catch (error) {
-      console.info("Camada ausente (normal antes de subir o arquivo):", url, error.message);
-      return null;
-    }
-  }
-
-  /* --- Inicializa o mapa do modal (só na primeira abertura) --- */
-  async function inicializarMapa(centro, zoom) {
-    if (mapaModal) return;
-
-    baseAtual = basemaps.osm;
-    mapaModal = L.map("mapaFullscreen", { center:centro, zoom:zoom });
-    baseAtual.addTo(mapaModal);
-
-    // Carrega camadas globais de forma assíncrona
-    camadaApa = await carregarGeoJSON("data/apa-litoral-sul-sc.geojson", estilos.apa,
-      function(f) { return "<b>APA Litoral Sul de SC</b><br>Área de Proteção Ambiental"; }
-    );
-    if (camadaApa) camadaApa.addTo(mapaModal);
-
-    camadaApp = await carregarGeoJSON("data/app-hidrica-ana.geojson", estilos.appHidrica,
-      function(f) { return "<b>APP Hídrica</b><br>Fonte: ANA / SNIRH"; }
-    );
-    if (camadaApp) camadaApp.addTo(mapaModal);
-
-    camadaLaudos = await carregarGeoJSON("data/laudos-geozimba.geojson", estilos.laudos,
-      function(f) {
-        var p = f.properties || {};
-        return "<b>Laudo Geo Zimba</b>" +
-          (p.nome      ? "<br>" + p.nome           : "") +
-          (p.tipo      ? "<br>Tipo: " + p.tipo      : "") +
-          (p.municipio ? "<br>Município: " + p.municipio : "") +
-          (p.ano       ? "<br>Ano: " + p.ano        : "");
-      }
-    );
-    if (camadaLaudos) camadaLaudos.addTo(mapaModal);
-
-    /* Ativa controles do painel */
-    ativarPainel();
-  }
-
-  /* --- Abre o modal ao clicar em "Ver mapa completo" --- */
-  async function abrirModal(btn) {
-    spinner.classList.add('active'); // Ativa o spinner
-
-    var url    = btn.getAttribute("data-geojson");
-    var titulo = btn.getAttribute("data-titulo")    || "Projeto";
-    var descr  = btn.getAttribute("data-descricao") || "";
-    var partes = btn.getAttribute("data-centro").split(",");
-    var centro = [parseFloat(partes[0]), parseFloat(partes[1])];
-    var zoom   = parseInt(btn.getAttribute("data-zoom"), 10) || 13;
-    var card   = btn.closest(".portfolio-card");
-    var cat    = card ? card.getAttribute("data-category") : "app";
-    var estilo = estilos[cat] || estilos.app;
-
-    document.getElementById("modalTitulo").textContent    = titulo;
-    document.getElementById("modalDescricao").textContent = descr;
-    document.getElementById("mapaModal").classList.add("ativo");
-    document.body.style.overflow = "hidden";
-
-    await inicializarMapa(centro, zoom); // Garante que o mapa e camadas globais estejam inicializados
-    mapaModal.setView(centro, zoom);
-
-    /* Remove projeto anterior e carrega o novo */
-    if (camadaProjeto) { mapaModal.removeLayer(camadaProjeto); camadaProjeto = null; }
-    document.getElementById("toggle-projeto").checked = true;
-
-    camadaProjeto = await carregarGeoJSON(url, estilo);
-    if (camadaProjeto) {
-      camadaProjeto.addTo(mapaModal);
-      if (camadaProjeto.getBounds().isValid()) {
-        mapaModal.fitBounds(camadaProjeto.getBounds(), {padding:[30,30]});
-      }
-    }
-
-    setTimeout(function(){
-      if(mapaModal) mapaModal.invalidateSize();
-      spinner.classList.remove('active'); // Desativa o spinner
-    }, 250);
-  }
-
-  /* --- Fecha o modal --- */
-  function fecharModal() {
-    document.getElementById("mapaModal").classList.remove("ativo");
-    document.getElementById("mapaModalInner").classList.remove("tela-cheia");
-    document.getElementById("btnFullscreen").textContent = "⛶";
-    document.body.style.overflow = "";
-    // Opcional: Limpar o mapa ou remover camadas específicas se desejar
-    // if (mapaModal) {
-    //   mapaModal.eachLayer(function(layer) {
-    //     if (layer !== baseAtual) { // Não remove o basemap
-    //       mapaModal.removeLayer(layer);
-    //     }
-    //   });
-    // }
-  }
-
-  /* --- Painel de camadas --- */
-  function ativarPainel() {
-    // Função auxiliar para toggle de camada
-    function setupLayerToggle(checkboxId, layer) {
-      const checkbox = document.getElementById(checkboxId);
-      if (checkbox && layer) {
-        checkbox.addEventListener("change", function() {
-          this.checked ? mapaModal.addLayer(layer) : mapaModal.removeLayer(layer);
-        });
-        checkbox.disabled = false; // Garante que esteja habilitado se a camada existe
-      } else if (checkbox) { // Se a camada não existe, desabilita o checkbox
-        checkbox.disabled = true;
-        checkbox.checked = false; // Garante que não esteja marcado
-      }
-    }
-
-    // A camadaProjeto é carregada dinamicamente, então o setupLayerToggle precisa ser chamado após cada carregamento
-    // Para as camadas globais, podemos chamar aqui:
-    setupLayerToggle("toggle-apa", camadaApa);
-    setupLayerToggle("toggle-app", camadaApp);
-    setupLayerToggle("toggle-laudos", camadaLaudos);
-
-    // Para o toggle-projeto, a lógica de habilitação/desabilitação é tratada dentro de abrirModal
-    // e o event listener já está no HTML, então não precisamos re-adicionar aqui.
-
-    /* Troca de mapa base */
-    document.querySelectorAll("input[name='basemap']").forEach(function(radio) {
-      radio.addEventListener("change", function() {
-        if (!mapaModal || !baseAtual) return;
-        mapaModal.removeLayer(baseAtual);
-        baseAtual = basemaps[this.value];
-        baseAtual.addTo(mapaModal);
-        baseAtual.bringToBack();
-      });
-    });
-
-    /* Recolher/expandir painel */
-    document.getElementById("btnPainelToggle").addEventListener("click", function() {
-      var painel = document.getElementById("mapaPainel");
-      painel.classList.toggle("recolhido");
-      this.textContent = painel.classList.contains("recolhido") ? "▶" : "◀";
-      setTimeout(function(){ if(mapaModal) mapaModal.invalidateSize(); }, 300);
-    });
-  }
-
-  /* --- Botão tela cheia --- */
-  document.getElementById("btnFullscreen").addEventListener("click", function() {
-    var inner = document.getElementById("mapaModalInner");
-    inner.classList.toggle("tela-cheia");
-    this.textContent = inner.classList.contains("tela-cheia") ? "⊡" : "⛶";
-    setTimeout(function(){ if(mapaModal) mapaModal.invalidateSize(); }, 300);
-  });
-
-  /* --- Fechar modal --- */
-  document.getElementById("btnFecharModal").addEventListener("click", fecharModal);
-  document.getElementById("mapaModal").addEventListener("click", function(e) {
-    if (e.target === this) fecharModal();
-  });
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") fecharModal();
-  });
-
-  /* --- Filtros dos cards --- */
-  document.querySelectorAll(".filter-btn").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      document.querySelectorAll(".filter-btn")
-        .forEach(function(b){ b.classList.remove("active"); });
-      this.classList.add("active");
-      var f = this.getAttribute("data-filter");
-      document.querySelectorAll(".portfolio-card").forEach(function(card) {
-        card.classList.toggle("oculto",
-          f !== "all" && card.getAttribute("data-category") !== f);
-      });
-    });
-  });
-
-  /* --- Adiciona event listeners aos botões "Ver mapa completo" --- */
-  document.querySelectorAll(".btn-ver-mapa").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      abrirModal(this);
-    });
-  });
-
-})();
-</script>
-
-</body>
-</html>
