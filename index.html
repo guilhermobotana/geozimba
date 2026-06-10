@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consultoria Ambiental em Imbituba, Garopaba e SC | Licenciamento, REURB e Regularização Ambiental</title>
-<meta name="description" content="Consultoria ambiental em Imbituba, Garopaba e litoral de SC. Licenciamento ambiental (LP, LI, LO, LAC), CTF/APP, AIDA, REURB, APP, PRAD, CAR e geoprocessamento.">
+<meta name="description" content="Consultoria ambiental em Imbituba, Garopaba e litoral de SC. Licenciamento ambiental (LP, LI, LO, LAC), CTF/APP, AIDA, REURB, APP, PRAD e geoprocessamento.">
 <meta name="theme-color" content="#0a3d2e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -286,7 +286,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
   letter-spacing: .05em;
 }
 .tag-reurb { background: #1565c0; }
-.tag-car   { background: #795548; }
+.tag-car   { background: #795548; } /* Mantido para caso queira reintroduzir, mas não usado */
 .tag-prad  { background: #e65100; }
 .card-info h3 {
   font-size: 1.05rem;
@@ -559,7 +559,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <span>REURB</span>
         <span>APP</span>
         <span>PRAD</span>
-        <span>CAR</span>
+        <!-- <span>CAR</span> REMOVIDO -->
       </div>
       <div style="display:flex;gap:.9rem;flex-wrap:wrap;">
         <a href="#contato" class="btn btn-primary">Verificar minha situação</a>
@@ -583,7 +583,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <div class="card"><strong>Posto de combustível</strong> Risco de contaminação do solo.</div>
         <div class="card"><strong>Imóvel em APP ou REURB</strong> Construção em área irregular.</div>
         <div class="card"><strong>Área degradada</strong> PRAD e recuperação ambiental.</div>
-        <div class="card"><strong>Área rural</strong> CAR, APP e reserva legal.</div>
+        <div class="card"><strong>Área rural</strong> APP e reserva legal.</div> <!-- CAR REMOVIDO -->
       </div>
     </div>
   </section>
@@ -602,7 +602,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <div class="card"><strong>Geoprocessamento</strong> Mapas e análises espaciais com QGIS.</div>
         <div class="card"><strong>Regularização de APP</strong> Avaliação técnica e adequação ambiental.</div>
         <div class="card"><strong>PRAD</strong> Recuperação de áreas degradadas.</div>
-        <div class="card"><strong>CAR</strong> Cadastro ambiental rural e adequação.</div>
+        <!-- <div class="card"><strong>CAR</strong> Cadastro ambiental rural e adequação.</div> REMOVIDO -->
       </div>
       <div style="margin-top:2rem;">
         <a href="https://wa.me/5548991243156?text=Olá,%20vim%20pelo%20site%20e%20quero%20um%20orçamento"
@@ -643,7 +643,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="app">APP</button>
         <button class="filter-btn" data-filter="reurb">REURB</button>
-        <button class="filter-btn" data-filter="car">CAR</button>
+        <!-- <button class="filter-btn" data-filter="car">CAR</button> REMOVIDO -->
         <button class="filter-btn" data-filter="prad">PRAD</button>
       </div>
     </div>
@@ -694,8 +694,8 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
         </div>
       </div>
 
-      <!-- PROJETO 3 -->
-      <div class="portfolio-card" data-category="car">
+      <!-- PROJETO 3 (CAR) REMOVIDO -->
+      <!-- <div class="portfolio-card" data-category="car">
         <div class="card-map-preview" id="map-preview-3"></div>
         <div class="card-info">
           <span class="card-tag tag-car">CAR</span>
@@ -714,7 +714,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
             🗺️ Ver mapa completo
           </button>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </section>
@@ -830,7 +830,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
       <div>
         <div class="eyebrow">Fale com a Geo Zimba</div>
         <h2 class="title">Regularizar é mais <em>simples do que parece</em></h2>
-        <p class="text" style="margin-bottom:1.5rem;">Esta versão está pronta para GitHub Pages. O formulário funciona sem backend próprio e abre seu aplicativo de e-mail com a mensagem preenchida.</p>
+        <p class="text" style="margin-bottom:1.5rem;">Preencha o formulário abaixo ou entre em contato diretamente pelo WhatsApp para verificar sua situação e solicitar um orçamento.</p>
         <div class="form-box">
           <form id="contato-form" action="https://formsubmit.co/guilhermobotana@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="Novo contato pelo site Geo Zimba">
@@ -852,7 +852,7 @@ footer { background: var(--green-900); color: rgba(255,255,255,.72); padding: 1.
                 <option>Regularização fundiária (REURB)</option>
                 <option>Regularização de APP</option>
                 <option>PRAD | Recuperação de área degradada</option>
-                <option>CAR / Regularização rural</option>
+                <!-- <option>CAR / Regularização rural</option> REMOVIDO -->
                 <option>Não sei, quero um diagnóstico</option>
               </select>
             </div>
@@ -950,7 +950,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
   var estilos = {
     app:        { color:"#1b6e4d", fillColor:"#2d9e6b", fillOpacity:.4, weight:2 },
     reurb:      { color:"#1565c0", fillColor:"#42a5f5", fillOpacity:.4, weight:2 },
-    car:        { color:"#795548", fillColor:"#a1887f", fillOpacity:.4, weight:2 },
+    // car:        { color:"#795548", fillColor:"#a1887f", fillOpacity:.4, weight:2 }, // REMOVIDO
     prad:       { color:"#e65100", fillColor:"#ff8a65", fillOpacity:.4, weight:2 },
     apa:        { color:"#1b7837", fillColor:"#1b7837", fillOpacity:.12, weight:2, dashArray:"6,4" },
     appHidrica: { color:"#4393c3", fillColor:"#4393c3", fillOpacity:.18, weight:1.5 },
@@ -961,7 +961,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
   var previews = [
     { id:"map-preview-1", lat:-28.23, lng:-48.66, zoom:12 },
     { id:"map-preview-2", lat:-28.03, lng:-48.61, zoom:13 },
-    { id:"map-preview-3", lat:-28.48, lng:-48.77, zoom:11 }
+    // { id:"map-preview-3", lat:-28.48, lng:-48.77, zoom:11 } // REMOVIDO
   ];
   previews.forEach(function(p) {
     var el = document.getElementById(p.id);
